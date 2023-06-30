@@ -19,9 +19,6 @@
     <loc>https://krlmlr.github.io/duckplyr/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://krlmlr.github.io/duckplyr/reference/new_relational.html</loc>
-  </url>
-  <url>
     <loc>https://krlmlr.github.io/duckplyr/reference/rel.html</loc>
   </url>
   <url>
@@ -64,9 +61,9 @@
     <loc>https://krlmlr.github.io/duckplyr/reference/rel_set_symdiff.html</loc>
   </url>
   <url>
-    <loc>https://krlmlr.github.io/duckplyr/reference/rel_to_df.html</loc>
+    <loc>https://krlmlr.github.io/duckplyr/reference/rel_union_all.html</loc>
   </url>
   <url>
-    <loc>https://krlmlr.github.io/duckplyr/reference/rel_union_all.html</loc>
+    <loc>https://krlmlr.github.io/duckplyr/reference/relational.html</loc>
   </url>
 </urlset>
