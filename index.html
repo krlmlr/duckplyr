@@ -28,7 +28,7 @@
     
     <a class="navbar-brand me-2" href="index.html">duckplyr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.99.9001</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.99.9002</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,7 +71,10 @@
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install the development version of duckplyr from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<p>Once on CRAN, you can install duckplyr with:</p>
+<pre class="chroma">
+<span><span class="nf"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="o">(</span><span class="s">"duckplyr"</span><span class="o">)</span></span></pre>
+<p>You can also install the development version of duckplyr from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
 <pre class="chroma">
 <span><span class="c"># install.packages("pak", repos = sprintf("https://r-lib.github.io/p/pak/stable/%s/%s/%s", .Platform$pkgType, R.Version()$os, R.Version()$arch))</span></span>
 <span><span class="nf">pak</span><span class="nf">::</span><span class="nf"><a href="http://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="o">(</span><span class="s">"krlmlr/duckplyr"</span><span class="o">)</span></span></pre>
@@ -118,10 +121,10 @@
 <span>  <span class="o">)</span></span>
 <span><span class="o">)</span></span>
 <span><span class="c">#&gt; [[1]]</span></span>
-<span><span class="c">#&gt;                    mpg cyl disp  hp</span></span>
-<span><span class="c">#&gt; Hornet Sportabout 18.7   8  360 175</span></span>
-<span><span class="c">#&gt; Hornet 4 Drive    21.4   6  258 110</span></span>
-<span><span class="c">#&gt; Mazda RX4 Wag     21.0   6  160 110</span></span>
+<span><span class="c">#&gt;                  mpg cyl disp  hp</span></span>
+<span><span class="c">#&gt; Mazda RX4 Wag   21.0   6  160 110</span></span>
+<span><span class="c">#&gt; Mazda RX4 Wag.1 21.0   6  160 110</span></span>
+<span><span class="c">#&gt; Datsun 710      22.8   4  108  93</span></span>
 <span><span class="c">#&gt; </span></span>
 <span><span class="c">#&gt; attr(,"class")</span></span>
 <span><span class="c">#&gt; [1] "dfrel"      "relational"</span></span>
