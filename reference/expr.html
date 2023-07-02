@@ -121,6 +121,10 @@ The arguments to this function are a list of other expression objects.</p>
 <dt>args</dt>
 <dd><p>Function arguments, a list of <code>expr</code> objects.</p></dd>
 
+
+<dt>expr</dt>
+<dd><p>An <code>expr</code> object.</p></dd>
+
 </dl></div>
 
     <div class="section level2">
@@ -128,15 +132,25 @@ The arguments to this function are a list of other expression objects.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">relexpr_set_alias</span><span class="op">(</span>alias <span class="op">=</span> <span class="st">"my_predicate"</span>,</span></span>
 <span class="r-in"><span>  <span class="fu">relexpr_function</span><span class="op">(</span><span class="st">"&lt;"</span>,</span></span>
 <span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>      <span class="fu">relexpr_window</span><span class="op">(</span></span></span>
-<span class="r-in"><span>        <span class="fu">relexpr_function</span><span class="op">(</span><span class="st">"first"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu">relexpr_reference</span><span class="op">(</span><span class="st">"my_number"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>        partitions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu">relexpr_reference</span><span class="op">(</span><span class="st">"my_grouping"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span>      <span class="op">)</span>,</span></span>
+<span class="r-in"><span>      <span class="fu">relexpr_reference</span><span class="op">(</span><span class="st">"my_number"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>      <span class="fu">relexpr_constant</span><span class="op">(</span><span class="fl">42</span><span class="op">)</span></span></span>
 <span class="r-in"><span>    <span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in relexpr_window(relexpr_function("first", list(relexpr_reference("my_number"))),     partitions = list(relexpr_reference("my_grouping"))):</span> could not find function "relexpr_window"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> List of 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ name : chr "&lt;"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ args :List of 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ :List of 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ name : chr "my_number"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ rel  : NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ alias: NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..- attr(*, "class")= chr [1:2] "relational_relexpr_reference" "relational_relexpr"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ :List of 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ val  : num 42</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ alias: NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..- attr(*, "class")= chr [1:2] "relational_relexpr_constant" "relational_relexpr"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ alias: chr "my_predicate"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "class")= chr [1:2] "relational_relexpr_function" "relational_relexpr"</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
