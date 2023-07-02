@@ -16,52 +16,10 @@
     <loc>https://krlmlr.github.io/duckplyr/index.html</loc>
   </url>
   <url>
+    <loc>https://krlmlr.github.io/duckplyr/reference/expr.html</loc>
+  </url>
+  <url>
     <loc>https://krlmlr.github.io/duckplyr/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://krlmlr.github.io/duckplyr/reference/rel.html</loc>
-  </url>
-  <url>
-    <loc>https://krlmlr.github.io/duckplyr/reference/rel_aggregate.html</loc>
-  </url>
-  <url>
-    <loc>https://krlmlr.github.io/duckplyr/reference/rel_alias.html</loc>
-  </url>
-  <url>
-    <loc>https://krlmlr.github.io/duckplyr/reference/rel_distinct.html</loc>
-  </url>
-  <url>
-    <loc>https://krlmlr.github.io/duckplyr/reference/rel_explain.html</loc>
-  </url>
-  <url>
-    <loc>https://krlmlr.github.io/duckplyr/reference/rel_filter.html</loc>
-  </url>
-  <url>
-    <loc>https://krlmlr.github.io/duckplyr/reference/rel_join.html</loc>
-  </url>
-  <url>
-    <loc>https://krlmlr.github.io/duckplyr/reference/rel_limit.html</loc>
-  </url>
-  <url>
-    <loc>https://krlmlr.github.io/duckplyr/reference/rel_order.html</loc>
-  </url>
-  <url>
-    <loc>https://krlmlr.github.io/duckplyr/reference/rel_project.html</loc>
-  </url>
-  <url>
-    <loc>https://krlmlr.github.io/duckplyr/reference/rel_set_alias.html</loc>
-  </url>
-  <url>
-    <loc>https://krlmlr.github.io/duckplyr/reference/rel_set_diff.html</loc>
-  </url>
-  <url>
-    <loc>https://krlmlr.github.io/duckplyr/reference/rel_set_intersect.html</loc>
-  </url>
-  <url>
-    <loc>https://krlmlr.github.io/duckplyr/reference/rel_set_symdiff.html</loc>
-  </url>
-  <url>
-    <loc>https://krlmlr.github.io/duckplyr/reference/rel_union_all.html</loc>
   </url>
   <url>
     <loc>https://krlmlr.github.io/duckplyr/reference/relational.html</loc>
