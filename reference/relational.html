@@ -207,8 +207,8 @@ to be used by <code><a href="https://rdrr.io/r/base/colnames.html" class="extern
 <dd><p>Classes added in front of the <code>"relational"</code> base class.</p></dd>
 
 
-<dt>rel</dt>
-<dd><p>The relational object.</p></dd>
+<dt>rel, rel_a, rel_b, left, right</dt>
+<dd><p>A relational object.</p></dd>
 
 
 <dt>exprs</dt>
@@ -216,23 +216,15 @@ to be used by <code><a href="https://rdrr.io/r/base/colnames.html" class="extern
 
 
 <dt>groups</dt>
-<dd><p>a list of expressions to group by</p></dd>
+<dd><p>A list of expressions to group by.</p></dd>
 
 
 <dt>aggregates</dt>
-<dd><p>a (optionally named) list of expressions with aggregates to compute</p></dd>
+<dd><p>A list of expressions with aggregates to compute.</p></dd>
 
 
 <dt>orders</dt>
-<dd><p>a list of expressions to order by</p></dd>
-
-
-<dt>left</dt>
-<dd><p>The left-hand-side relational object.</p></dd>
-
-
-<dt>right</dt>
-<dd><p>The right-hand-side relational object.</p></dd>
+<dd><p>A list of expressions to order by.</p></dd>
 
 
 <dt>conds</dt>
@@ -240,26 +232,22 @@ to be used by <code><a href="https://rdrr.io/r/base/colnames.html" class="extern
 
 
 <dt>join</dt>
-<dd><p>Type of join.</p></dd>
+<dd><p>The type of join.</p></dd>
 
 
 <dt>n</dt>
 <dd><p>The number of rows.</p></dd>
-
-
-<dt>rel_a, rel_b</dt>
-<dd><p>Relational objects.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<ul><li><p><code>new_relational()</code> returns a relational object.</p></li>
+<ul><li><p><code>new_relational()</code> returns a new relational object.</p></li>
 <li><p><code>rel_to_df()</code> returns a data frame.</p></li>
+<li><p><code>rel_names()</code> returns a character vector.</p></li>
 <li><p>All other generics return a modified relational object.</p></li>
-</ul><p>A data frame.</p>
-    </div>
+</ul></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
