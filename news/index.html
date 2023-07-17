@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">duckplyr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.99.9002</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,32 +45,28 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.0.99.9002" id="duckplyr-00999002-2023-07-02">duckplyr 0.0.99.9002 (2023-07-02)<a class="anchor" aria-label="anchor" href="#duckplyr-00999002-2023-07-02"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.1.0" id="duckplyr-010-2023-07-03">duckplyr 0.1.0 (2023-07-03)<a class="anchor" aria-label="anchor" href="#duckplyr-010-2023-07-03"></a></h2><p class="text-muted">CRAN release: 2023-07-07</p>
 <div class="section level3">
-<h3 id="bug-fixes-0-0-99-9002">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-0-99-9002"></a></h3>
+<h3 id="bug-fixes-0-1-0">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-1-0"></a></h3>
 <ul><li>Fix examples.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="chore-0-0-99-9002">Chore<a class="anchor" aria-label="anchor" href="#chore-0-0-99-9002"></a></h3>
-<ul><li><p>Add CRAN install instructions.</p></li>
-<li><p>Satisfy <code>R CMD check</code>.</p></li>
-<li><p>Document argument.</p></li>
-<li><p>Error on NOTE.</p></li>
-<li><p>Remove <code>relexpr_window()</code> for now.</p></li>
+<h3 id="chore-0-1-0">Chore<a class="anchor" aria-label="anchor" href="#chore-0-1-0"></a></h3>
+<ul><li>Add CRAN install instructions.</li>
+<li>Satisfy <code>R CMD check</code>.</li>
+<li>Document argument.</li>
+<li>Error on NOTE.</li>
+<li>Remove <code>relexpr_window()</code> for now.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="documentation-0-0-99-9002">Documentation<a class="anchor" aria-label="anchor" href="#documentation-0-0-99-9002"></a></h3>
+<h3 id="documentation-0-1-0">Documentation<a class="anchor" aria-label="anchor" href="#documentation-0-1-0"></a></h3>
 <ul><li>Clean up reference.</li>
 </ul></div>
+<div class="section level3">
+<h3 id="uncategorized-0-1-0">Uncategorized<a class="anchor" aria-label="anchor" href="#uncategorized-0-1-0"></a></h3>
+<p>Initial version, exporting: - <code><a href="../reference/relational.html">new_relational()</a></code> to construct objects of class <code>"relational"</code> - Generics <code><a href="../reference/relational.html">rel_aggregate()</a></code>, <code><a href="../reference/relational.html">rel_distinct()</a></code>, <code><a href="../reference/relational.html">rel_filter()</a></code>, <code><a href="../reference/relational.html">rel_join()</a></code>, <code><a href="../reference/relational.html">rel_limit()</a></code>, <code><a href="../reference/relational.html">rel_names()</a></code>, <code><a href="../reference/relational.html">rel_order()</a></code>, <code><a href="../reference/relational.html">rel_project()</a></code>, <code><a href="../reference/relational.html">rel_set_diff()</a></code>, <code><a href="../reference/relational.html">rel_set_intersect()</a></code>, <code><a href="../reference/relational.html">rel_set_symdiff()</a></code>, <code><a href="../reference/relational.html">rel_to_df()</a></code>, <code><a href="../reference/relational.html">rel_union_all()</a></code> - <code><a href="../reference/expr.html">new_relexpr()</a></code> to construct objects of class <code>"relational_relexpr"</code> - Expression builders <code><a href="../reference/expr.html">relexpr_constant()</a></code>, <code><a href="../reference/expr.html">relexpr_function()</a></code>, <code><a href="../reference/expr.html">relexpr_reference()</a></code>, <code><a href="../reference/expr.html">relexpr_set_alias()</a></code>, <code>relexpr_window()</code></p>
 </div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.0.99.9001" id="duckplyr-00999001-2023-07-02">duckplyr 0.0.99.9001 (2023-07-02)<a class="anchor" aria-label="anchor" href="#duckplyr-00999001-2023-07-02"></a></h2>
-<p>Initial version, exporting:</p>
-<ul><li><p><code><a href="../reference/relational.html">new_relational()</a></code> to construct objects of class <code>"relational"</code></p></li>
-<li><p>Generics <code><a href="../reference/relational.html">rel_aggregate()</a></code>, <code><a href="../reference/relational.html">rel_distinct()</a></code>, <code><a href="../reference/relational.html">rel_filter()</a></code>, <code><a href="../reference/relational.html">rel_join()</a></code>, <code><a href="../reference/relational.html">rel_limit()</a></code>, <code><a href="../reference/relational.html">rel_names()</a></code>, <code><a href="../reference/relational.html">rel_order()</a></code>, <code><a href="../reference/relational.html">rel_project()</a></code>, <code><a href="../reference/relational.html">rel_set_diff()</a></code>, <code><a href="../reference/relational.html">rel_set_intersect()</a></code>, <code><a href="../reference/relational.html">rel_set_symdiff()</a></code>, <code><a href="../reference/relational.html">rel_to_df()</a></code>, <code><a href="../reference/relational.html">rel_union_all()</a></code></p></li>
-<li><p><code><a href="../reference/expr.html">new_relexpr()</a></code> to construct objects of class <code>"relational_relexpr"</code></p></li>
-<li><p>Expression builders <code><a href="../reference/expr.html">relexpr_constant()</a></code>, <code><a href="../reference/expr.html">relexpr_function()</a></code>, <code><a href="../reference/expr.html">relexpr_reference()</a></code>, <code><a href="../reference/expr.html">relexpr_set_alias()</a></code>, <code>relexpr_window()</code></p></li>
-</ul></div>
+</div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
 
