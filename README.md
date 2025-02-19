@@ -1,1 +1,3 @@
-# ⚠️⚠️⚠️ New location: https://github.com/tidyverse/duckplyr ⚠️⚠️⚠️
+# ⚠️⚠️⚠️ New location ⚠️⚠️⚠️
+
+https://github.com/tidyverse/duckplyr
