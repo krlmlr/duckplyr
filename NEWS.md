@@ -1,6 +1,28 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
-# duckplyr 1.2.1.9012 (2026-05-24)
+# duckplyr 1.2.1.9900 (2026-06-17)
+
+## compat
+
+- `as_tbl()` attach finalizer to `lazy_query`, not `tbl`, for compatibility with dbplyr 2.6.0 (#919).
+
+## fledge
+
+- CRAN release v1.2.1 (#898).
+
+## Features
+
+- Enable `across()` translation for primitive functions such as `sum()` (#906, #907).
+
+## Chore
+
+- Add ccache to `.gitignore` and `.Rbuildignore`.
+
+- Auto-update from GitHub Actions (#913).
+
+- Auto-update from GitHub Actions (#902).
+
+- Auto-update from GitHub Actions (#900).
 
 ## Continuous integration
 
@@ -8,49 +30,13 @@
 
 - Bump action version.
 
-
-# duckplyr 1.2.1.9011 (2026-05-16)
-
-- Ci: Unify fledge.yaml across cynkratemplate and fledge (#86).
-
-
-# duckplyr 1.2.1.9010 (2026-05-14)
-
-## compat
-
-- `as_tbl()` attach finalizer to `lazy_query`, not `tbl`, for compatibility with dbplyr 2.6.0 (#919).
-
-
-# duckplyr 1.2.1.9009 (2026-05-13)
-
-## Chore
-
-- Add ccache to `.gitignore` and `.Rbuildignore`.
-
-## Continuous integration
-
 - Create snapshot update PR against correct branch.
 
 - Clarify rationale for not deploying on schedule.
 
-
-# duckplyr 1.2.1.9008 (2026-05-10)
-
-## Continuous integration
-
 - Only run fledge on pushes to main.
 
-
-# duckplyr 1.2.1.9007 (2026-05-10)
-
-## Continuous integration
-
 - Tweak fledge workflow and ccache action.
-
-
-# duckplyr 1.2.1.9006 (2026-05-06)
-
-## Continuous integration
 
 - Cosmetics.
 
@@ -62,51 +48,15 @@
 
 - Harmonize.
 
-
-# duckplyr 1.2.1.9005 (2026-05-04)
-
-## Chore
-
-- Auto-update from GitHub Actions (#913).
-
-
-# duckplyr 1.2.1.9004 (2026-04-11)
+- Ignore failing test with duckdb 1.5.0.
 
 ## Documentation
 
 - Update Plausible analytics snippet (@jeroenjanssens, #910).
 
+## Uncategorized
 
-# duckplyr 1.2.1.9003 (2026-03-28)
-
-## Features
-
-- Enable `across()` translation for primitive functions such as `sum()` (#906, #907).
-
-## Continuous integration
-
-- Ignore failing test with duckdb 1.5.0.
-
-
-# duckplyr 1.2.1.9002 (2026-03-13)
-
-## Chore
-
-- Auto-update from GitHub Actions (#902).
-
-
-# duckplyr 1.2.1.9001 (2026-03-12)
-
-## Chore
-
-- Auto-update from GitHub Actions (#900).
-
-
-# duckplyr 1.2.1.9000 (2026-03-10)
-
-## fledge
-
-- CRAN release v1.2.1 (#898).
+- Ci: Unify fledge.yaml across cynkratemplate and fledge (#86).
 
 
 # duckplyr 1.2.1 (2026-03-09)
