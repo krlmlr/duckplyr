@@ -2,61 +2,17 @@
 
 # duckplyr 1.2.1.9900 (2026-06-17)
 
-## compat
-
-- `as_tbl()` attach finalizer to `lazy_query`, not `tbl`, for compatibility with dbplyr 2.6.0 (#919).
-
-## fledge
-
-- CRAN release v1.2.1 (#898).
-
 ## Features
 
 - Enable `across()` translation for primitive functions such as `sum()` (#906, #907).
 
-## Chore
+## Compatibility
 
-- Add ccache to `.gitignore` and `.Rbuildignore`.
-
-- Auto-update from GitHub Actions (#913).
-
-- Auto-update from GitHub Actions (#902).
-
-- Auto-update from GitHub Actions (#900).
-
-## Continuous integration
-
-- Update ccache-action reference.
-
-- Bump action version.
-
-- Create snapshot update PR against correct branch.
-
-- Clarify rationale for not deploying on schedule.
-
-- Only run fledge on pushes to main.
-
-- Tweak fledge workflow and ccache action.
-
-- Cosmetics.
-
-- Bump action versions.
-
-- Install clang-format-21.
-
-- Align fledge workflow.
-
-- Harmonize.
-
-- Ignore failing test with duckdb 1.5.0.
+- `as_tbl()` attaches finalizer to `lazy_query`, not `tbl`, for compatibility with dbplyr 2.6.0 (#919).
 
 ## Documentation
 
 - Update Plausible analytics snippet (@jeroenjanssens, #910).
-
-## Uncategorized
-
-- Ci: Unify fledge.yaml across cynkratemplate and fledge (#86).
 
 
 # duckplyr 1.2.1 (2026-03-09)
