@@ -45,29 +45,29 @@
     Code
       all_equal(df1, df2)
     Output
-      Different types for column `x`: factor<38051> vs factor<bb232>.
+      Different types for column `x`: factor<...> vs factor<...>.
     Code
       all_equal(df2, df1)
     Output
-      Different types for column `x`: factor<bb232> vs factor<38051>.
+      Different types for column `x`: factor<...> vs factor<...>.
 
 # factor comparison requires strict equality of levels (#2440)
 
     Code
       all_equal(df1, df2)
     Output
-      Different types for column `x`: factor<4d52a> vs factor<38051>.
+      Different types for column `x`: factor<...> vs factor<...>.
     Code
       all_equal(df2, df1)
     Output
-      Different types for column `x`: factor<38051> vs factor<4d52a>.
+      Different types for column `x`: factor<...> vs factor<...>.
 
 # equality test fails when convert is FALSE and types don't match (#1484)
 
     Code
       all_equal(df1, df2, convert = FALSE)
     Output
-      Different types for column `x`: character vs factor<4d52a>.
+      Different types for column `x`: character vs factor<...>.
 
 # equality returns a message for convert = TRUE
 

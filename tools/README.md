@@ -77,6 +77,8 @@ For each verb, creates tests that convert a data frame to a `duckplyr_df` and co
 
 Copies test files from `.sync/dplyr-main/tests/testthat/` into duckplyr's test suite as `test-dplyr-*.R`. Rewrites verb calls to use `duckplyr_<verb>()` wrappers and inserts `skip("TODO duckdb")` annotations for tests listed in `duckplyr_tests`.
 
+After writing the generated files, it applies any patch files found in `patch-tests/` (manual tweaks on top of the generated tests, e.g. snapshot scrubbers such as `transform = scrub_hash`). It then collects new patches by diffing the current test files against the generated baseline, so manual edits are preserved across regeneration. This mirrors the patch workflow of `02-duckplyr_df-methods.R`.
+
 #### `05-duckdb-tests.R`
 
 Generates `tests/testthat/test-rel_api.R`.

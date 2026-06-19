@@ -258,7 +258,7 @@ test_that("bind_rows() accepts difftime objects", {
 # Errors ------------------------------------------------------------
 
 test_that("bind_rows() give informative errors", {
-  expect_snapshot({
+  expect_snapshot(transform = scrub_hash, {
     "invalid .id"
     df1 <- tibble(x = 1:3)
     df2 <- tibble(x = 4:6)

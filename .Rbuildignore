@@ -3,6 +3,7 @@
 ^tools$
 ^dplyr-methods$
 ^patch$
+^patch-tests$
 ^README\.Rmd$
 ^LICENSE\.md$
 ^res-dplyr\.csv$
