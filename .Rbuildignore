@@ -24,6 +24,7 @@
 ^codecov\.yml$
 ^R/revdep\.R$
 ^gh-analysis$
+^gh-fork-cleanup$
 ^index\.md$
 ^touchstone$
 ^README_cache$
