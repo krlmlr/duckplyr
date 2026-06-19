@@ -541,11 +541,11 @@ test_that("replace_when() retains the type of `x`", {
   )
 
   # Can't cast to unknown level
-  expect_snapshot(error = TRUE, {
+  expect_snapshot(transform = scrub_hash, error = TRUE, {
     replace_when(x, x == "a" ~ "d")
   })
   # Error index is right when `NULL` is involved
-  expect_snapshot(error = TRUE, {
+  expect_snapshot(transform = scrub_hash, error = TRUE, {
     replace_when(x, x == "a" ~ "b", NULL, x == "b" ~ "d")
   })
 })
