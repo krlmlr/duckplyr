@@ -54,12 +54,29 @@ are the package maintainer so they are never flagged.
 * `review-forks.txt` — the "unsure" pile; **never** auto-deleted.
 * `classified.tsv` — full `verdict <TAB> repo <TAB> reason` table for every fork.
 
+## Rate limits
+
+Analysing every branch of every fork is many API calls (one `compare` per
+branch — a fork with 100+ branches alone is 100+ calls), and firing them
+concurrently trips GitHub's *secondary* rate limit, which makes calls start
+failing mid-run. To stay safe:
+
+* The finder runs **serially by default** (`JOBS=1`). Raise it cautiously, e.g.
+  `JOBS=4 ./find-stale-forks.sh`.
+* Every API call goes through a retry wrapper with exponential backoff that
+  detects rate-limit / secondary-limit / 403 / 429 responses (`RETRIES=5` by
+  default).
+* Crucially, a fork is marked **STALE only when every branch was compared
+  *without error* and found contained.** Any throttling, compare error, empty
+  branch list, or other uncertainty downgrades the fork to **REVIEW** — so an
+  incomplete or rate-limited run can never feed a deletion.
+
 ## Caveats
 
 * Branch work that was **squash-merged** upstream shows up as unique commits, so
   the fork is flagged **REVIEW**, not STALE — by design.
+* Branches with an **unrelated history** to the base (e.g. orphan `gh-pages`)
+  report "UNRELATED history" and go to REVIEW.
 * **Private** forks are routed to REVIEW for manual inspection rather than
   compared automatically.
-* Forks with many branches mean many API calls; runs against an authenticated
-  `gh` (5000 requests/hour) but a huge account may still want to throttle.
 * Deletion is permanent. There is no undo.
