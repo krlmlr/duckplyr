@@ -1,0 +1,16 @@
+pandoc: 3.8.3
+pkgdown: 2.2.1.9000
+pkgdown_sha: 179cfaee3d4e17eaa9e7d7c700b1269dc62e4d46
+articles:
+  developers: developers.html
+  duckdb: duckdb.html
+  extend: extend.html
+  fallback: fallback.html
+  large: large.html
+  limits: limits.html
+  prudence: prudence.html
+  telemetry: telemetry.html
+last_built: 2026-07-24T13:26Z
+urls:
+  reference: https://duckplyr.tidyverse.org/reference
+  article: https://duckplyr.tidyverse.org/articles
