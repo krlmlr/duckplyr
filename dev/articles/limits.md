@@ -45,7 +45,7 @@ duckplyr::duckdb_tibble(
 ) |>
   compute()
 #> duckdb is keeping downloaded extensions in a temporary directory:
-#> ℹ /tmp/RtmpBORdoA/duckdb/extensions
+#> ℹ /tmp/Rtmp8MvTtF/duckdb/extensions
 #> This is removed when the R session ends, so extensions are re-downloaded each session.
 #> ℹ To keep them, point `options(duckdb.extension_directory =)` or the `DUCKDB_EXTENSION_DIRECTORY` environment variable at a permanent path.
 #> # A duckplyr data frame: 7 variables
@@ -450,7 +450,7 @@ duckplyr::duckdb_tibble(a = 1:3, .prudence = "stingy") |>
 #> │          ORDER_BY         │
 #> │    --------------------   │
 #> │      dataframe_42_42      │
-#> │       4391854.a DESC      │
+#> │      84391854.a DESC      │
 #> └-------------┬-------------┘
 #> ┌-------------┴-------------┐
 #> │      R_DATAFRAME_SCAN     │
@@ -561,7 +561,7 @@ withr::with_envvar(
 #> │          ORDER_BY         │
 #> │    --------------------   │
 #> │      dataframe_42_42      │
-#> │ 42.___row_number ASC│
+#> │42.___row_number ASC│
 #> └-------------┬-------------┘
 #> ┌-------------┴-------------┐
 #> │       HASH_GROUP_BY       │
