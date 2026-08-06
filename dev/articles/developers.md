@@ -45,7 +45,7 @@ lazy <-
   ) |>
   filter(month <= 6)
 #> duckdb keeps downloaded extensions and secrets in a temporary directory:
-#> ℹ /tmp/Rtmp47kC1g/duckdb
+#> ℹ /tmp/RtmprZnj31/duckdb
 #> This is removed when the R session ends.
 #> • Extensions are re-downloaded each session.
 #> • Secrets are lost.
