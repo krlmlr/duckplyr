@@ -16,10 +16,10 @@ Description: A drop-in replacement for 'dplyr', powered by 'DuckDB' for
 License: MIT + file LICENSE
 URL: https://duckplyr.tidyverse.org, https://github.com/tidyverse/duckplyr
 BugReports: https://github.com/tidyverse/duckplyr/issues
-Depends: 
+Depends:
     R (>= 4.0.0),
     dplyr (>= 1.2.0)
-Imports: 
+Imports:
     cli,
     collections,
     DBI,
@@ -35,7 +35,7 @@ Imports:
     tidyselect,
     utils,
     vctrs (>= 0.6.3)
-Suggests: 
+Suggests:
     arrow,
     brio,
     callr,
@@ -56,10 +56,10 @@ Suggests:
     testthat (>= 3.1.5),
     usethis,
     withr
-Enhances: 
+Enhances:
     qs2
 Config/Needs/check: anthonynorth/roxyglobals
-Config/Needs/development: 
+Config/Needs/development:
     devtools,
     qs2,
     reprex,
@@ -67,7 +67,7 @@ Config/Needs/development:
     roxyglobals,
     rstudioapi,
     tidyverse
-Config/Needs/website: 
+Config/Needs/website:
     dbplyr,
     rmarkdown,
     tidyverse/tidytemplate
@@ -75,6 +75,10 @@ Config/testthat/edition: 3
 Config/testthat/parallel: false
 Config/testthat/start-first: rel_api, tpch, as_duckplyr_df, dplyr-mutate,
     dplyr-filter, dplyr-count-tally
+Config/gha/extra-packages:
+    arrow=?ignore-build-errors
+Config/comment/gha/extra-packages: arrow does not compile
+    on aarch64 Windows.
 Encoding: UTF-8
 Roxygen: list( markdown = TRUE, roclets = c("collate", "namespace", "rd",
     "roxyglobals::global_roclet") )
