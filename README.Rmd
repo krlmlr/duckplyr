@@ -48,6 +48,105 @@ local({
   hook_source <- knitr::knit_hooks$get("document")
   knitr::knit_hooks$set(document = clean_output)
 })
+
+# The chunks in the "Analyzing larger-than-memory data" section below query
+# Parquet files over the network, and their output depends on remote state we
+# do not control: the row estimates and the number of files scanned in the
+# query plan come from the files themselves.
+# Rendering them live would make every render a diff, and would leave the
+# README unrenderable wherever blobs.duckdb.org cannot be reached, so their
+# output is a recording, replayed from README-fixtures/.
+#
+# To refresh the recording, render with the environment variable set:
+#
+#     DUCKPLYR_RECORD=1 Rscript -e 'rmarkdown::render("README.Rmd")'
+#
+# and commit the changed fixtures along with the README.
+record_dir <- "README-fixtures"
+record_refresh <- nzchar(Sys.getenv("DUCKPLYR_RECORD"))
+record_buffer <- new.env(parent = emptyenv())
+
+record_file <- function(label) {
+  file.path(record_dir, paste0(label, ".txt"))
+}
+
+# Emits the recorded output of a chunk, in place of the chunk's own code.
+# The recording is already commented out with the chunk's `comment` prefix,
+# which is why `comment` is turned off for a recorded chunk: knitr must not
+# add the prefix a second time.
+replay <- function(label) {
+  lines <- readLines(record_file(label), encoding = "UTF-8")
+  if (length(lines) > 0) {
+    cat(lines, sep = "\n")
+  }
+  invisible()
+}
+
+# An ordinary render evaluates `replay()` instead of the chunk, and shows the
+# chunk's own code in its place via the `source` hook below.
+#
+# The recording is replayed in one go, after the whole chunk has been echoed,
+# so a recorded chunk must produce all of its output at the end. A chunk that
+# prints something in the middle would replay in a different order than it was
+# recorded in.
+knitr::opts_hooks$set(record = function(options) {
+  if (!isTRUE(options$record) || record_refresh) {
+    return(options)
+  }
+
+  options$record_src <- paste(options$code, collapse = "\n")
+  options$code <- sprintf('replay("%s")', options$label)
+  options$comment <- NA
+  options
+})
+
+local({
+  hook_source <- knitr::knit_hooks$get("source")
+  knitr::knit_hooks$set(source = function(x, options) {
+    src <- options$record_src
+    hook_source(if (is.null(src)) x else src, options)
+  })
+})
+
+if (record_refresh) {
+  dir.create(record_dir, showWarnings = FALSE)
+
+  # The recording is taken from knitr's own output hooks, which see each piece
+  # of a chunk's output once knitr has formatted it and before it is wrapped in
+  # a fence. Capturing inside the chunk instead would lose everything that does
+  # not go to stdout: knitr installs calling handlers of its own for messages
+  # and warnings, so `capture.output(type = "message")` comes back empty.
+  for (type in c("output", "message", "warning", "error")) {
+    local({
+      hook <- knitr::knit_hooks$get(type)
+      wrapped <- list(function(x, options) {
+        if (isTRUE(options$record)) {
+          record_buffer$text <- c(record_buffer$text, x)
+        }
+        hook(x, options)
+      })
+      names(wrapped) <- type
+      knitr::knit_hooks$set(wrapped)
+    })
+  }
+
+  # One file per chunk, written once the chunk is complete.
+  local({
+    hook_chunk <- knitr::knit_hooks$get("chunk")
+    knitr::knit_hooks$set(chunk = function(x, options) {
+      if (isTRUE(options$record)) {
+        text <- paste0(record_buffer$text, collapse = "")
+        record_buffer$text <- NULL
+        writeLines(
+          if (nzchar(text)) sub("\n$", "", text) else character(),
+          record_file(options$label),
+          useBytes = TRUE
+        )
+      }
+      hook_chunk(x, options)
+    })
+  })
+}
 ```
 
 # duckplyr <a href="https://duckplyr.tidyverse.org"><img src="man/figures/logo.png" align="right" height="138" /></a>
@@ -201,7 +300,12 @@ tibble(urls)
 Using the [httpfs DuckDB extension](https://duckdb.org/docs/extensions/httpfs/overview.html),
 we can query these files directly from R, without even downloading them first.
 
-```{r remote-https}
+The output of the remaining chunks in this section is a recording, replayed from `README-fixtures/`.
+They query a remote dataset that we do not control,
+so a live render would need network access and would still differ from one render to the next.
+The setup chunk of `README.Rmd` says how to refresh the recording.
+
+```{r remote-https, record = TRUE}
 db_exec("INSTALL httpfs")
 db_exec("LOAD httpfs")
 
@@ -212,17 +316,17 @@ Like with local data frames, queries on the remote data are executed lazily.
 Unlike with local data frames, the default is to disallow automatic materialization if the result is too large in order to protect memory:
 the results are not materialized until explicitly requested, with a `collect()` call for instance.
 
-```{r remote-thrifty, error = TRUE}
+```{r remote-thrifty, record = TRUE, error = TRUE}
 nrow(flights)
 ```
 
 For printing, only the first few rows of the result are fetched.
 
-```{r remote-print, cache = TRUE}
+```{r remote-print, record = TRUE}
 flights
 ```
 
-```{r remote-count, cache = TRUE}
+```{r remote-count, record = TRUE}
 flights |>
   count(Year)
 ```
@@ -230,7 +334,7 @@ flights |>
 Complex queries can be executed on the remote data.
 Note how only the relevant columns are fetched and the 2024 data isn't even touched, as it's not needed for the result.
 
-```{r remote-exec, cache = TRUE}
+```{r remote-exec, record = TRUE}
 out <-
   flights |>
   mutate(InFlightDelay = ArrDelay - DepDelay) |>
@@ -243,18 +347,21 @@ out <-
 
 out |>
   explain()
-
-out |>
-  print() |>
-  system.time()
 ```
 
-Over 10M rows analyzed in about 10 seconds over the internet, that's not bad.
+Printing the result runs the query:
+
+```{r remote-exec-print, record = TRUE}
+out
+```
+
+Over 13M rows analyzed over the internet,
+reading only the four columns the query needs, and only two of the three files.
 Of course, working with Parquet, CSV, or JSON files downloaded locally is possible as well.
 
 For full compatibility, `na.rm = FALSE` by default in the aggregation functions:
 
-```{r remote-na-rm, cache = TRUE}
+```{r remote-na-rm, record = TRUE}
 flights |>
   summarize(mean(ArrDelay - DepDelay))
 ```
