@@ -69,6 +69,24 @@ If you are new to dplyr,
 the best place to start is the [data transformation chapter](https://r4ds.hadley.nz/data-transform) in _R for Data Science_.
 
 
+## Goals and non-goals
+
+duckplyr aims to:
+
+- Run all existing dplyr code with identical results, using exactly the same syntax and semantics.
+- Compute those results with DuckDB wherever it can, for speed.
+- Fall back to dplyr whenever DuckDB cannot handle an operation, function or data type, so that a pipeline never breaks.
+- Analyze larger-than-memory data straight from Parquet, CSV and JSON files on disk or on the web.
+- Keep automatic materialization under control, so that a large intermediate result does not silently fill memory.
+
+It is explicitly not trying to:
+
+- Generate SQL, or target database engines other than DuckDB: DuckDB's relational interface is used directly.
+- Preserve dplyr's row order by default: DuckDB does not guarantee order stability, so ordering is opt-in via `DUCKPLYR_OUTPUT_ORDER`.
+- Cover DuckDB functions with no R equivalent in the translation layer: the experimental `as_tbl()` and `dd$fun()` escape hatches do that.
+- Upload anything by itself: fallback reports are collected locally by default, and uploading is opt-in.
+
+
 ## Installation
 
 Install duckplyr from CRAN with:
