@@ -42,7 +42,7 @@ out <-
   flights_df() |>
   summarize(.by = origin, paste(dest, collapse = " "))
 #> duckdb keeps downloaded extensions and secrets in a temporary directory:
-#> ℹ /tmp/RtmpC6vxeU/duckdb
+#> ℹ /tmp/Rtmpub0c5i/duckdb
 #> This is removed when the R session ends.
 #> • Extensions are re-downloaded each session.
 #> • Secrets are lost.
