@@ -14,6 +14,9 @@ Both are clones of the fork [`krlmlr/dplyr`](https://github.com/krlmlr/dplyr), n
   The method sources and the vendored tests are taken from it, and the scripts pull it before reading.
   That branch was reported stale and unused when the rigged dplyr was last rebased,
   so a sync from it may read an old dplyr until this clone is pointed at a current one.
+  On 2026-10-22 the fork's default branch was an ancestor of the tag `v1.2.1`, 130 commits behind it and with no commits of its own,
+  and the vendored tests were taken from a detached checkout of that tag
+  ([`vendored-tests/`](/handbook/dplyr-alignment/vendored-tests/README.md)).
 * `.sync/dplyr-revdep` tracks the branch `f-revdep-duckplyr`, which carries the rigged dplyr
   ([`rigged-dplyr/`](/handbook/dplyr-alignment/rigged-dplyr/README.md)).
   Building it pushes to the fork, so this clone needs write access there.
@@ -42,6 +45,8 @@ Only that script needs it, but `tools/99-sync.R` runs it before the overwrite st
 `pak::pak(dependencies = "Config/Needs/development")` installs what `DESCRIPTION` declares for development,
 which brings in most of what the scripts call.
 `rex`, which only `tools/90-patch-dplyr.R` uses, is declared nowhere and is installed by hand.
+`constructive` is not on CRAN, so it is installed from <https://cynkra.r-universe.dev> first.
+Then `pak::local_install_dev_deps(upgrade = FALSE)` installs the rest without upgrading what is present.
 
 **Two command-line tools must be on the path.**
 The generators apply patch files with `patch`, and `tools/04-dplyr-tests.R` formats the vendored tests with `air`.

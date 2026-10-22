@@ -12,7 +12,8 @@ and what each script reads and writes is the per-script reference in [`tools/REA
 **[`tools/99-sync.R`](/tools/99-sync.R) is the entry point, and the order of its `source()` calls is the pipeline.**
 Run it from the package root in a fresh R session, as `source("tools/99-sync.R", echo = TRUE)`.
 The first script it runs, `tools/80-unsupported.R`, uses whichever dplyr is installed;
-every later one loads dplyr from `.sync/dplyr-main`, and the scripts that read dplyr pull that clone first.
+later scripts load dplyr from `.sync/dplyr-main` and pull that clone first, except `tools/03-tests.R`, which reads the installed dplyr.
+A generated `test-as_duckplyr_df.R` is stale until `tools/03-tests.R` runs against the dplyr being synced.
 Run it after dplyr changes, and after a change to the code generation itself.
 
 **A full run of the two patched generators changes patch files, not the files they patch.**
@@ -31,8 +32,19 @@ it folds the difference into the patch file, and a dplyr change ends up recorded
    `R/` then holds the fresh output with the existing patches applied, new verbs included.
 2. Review the diff of `R/` and `dplyr-methods/`, resolve every hunk that failed to apply, and stage the result.
 3. Run the whole script again, which rewrites the patch files against the new output and leaves the staged files as they are.
-4. Do the same for `tools/04-dplyr-tests.R`, whose comment is `# Stop here to overwrite files if the test generation is updated`.
+4. Do the same for `tools/04-dplyr-tests.R`, whose comment is `# Stop here to overwrite files if the test generation is updated`:
+   run it up to the comment, commit the regenerated tests, and hand-edit a generated test where one needs it, committing that too.
+   Then run the whole script, which collects the edits into `patch-tests/`, and amend the commit to include the patch.
 5. Run the rest of the pipeline.
+
+A new dplyr test file is vendored only once it has an entry in `duckplyr_tests`
+([`vendored-tests/`](/handbook/dplyr-alignment/vendored-tests/README.md)), so add the entry before the first pass.
+Running `tools/04-dplyr-tests.R` in full right after dplyr changes records a patch that reverts the upstream change.
+
+**A detached checkout of a tag stops the pull.**
+`gert::git_pull()` fails with "Repository is currently in a detached head state" on a tag.
+Stubbing it in the session before sourcing the script avoids editing the scripts:
+`utils::assignInNamespace("git_pull", function(...) invisible(NULL), "gert")`.
 
 **Every other generator overwrites its output outright.**
 The method sources under `dplyr-methods/`, the generated tests `test-as_duckplyr_df.R` and `test-rel_api.R`,
@@ -48,5 +60,5 @@ A vendored test that fails is either fixed in `R/` or skipped with a reason
 ([`vendored-tests/`](/handbook/dplyr-alignment/vendored-tests/README.md)).
 Then run the tests ([`testing/`](/handbook/testing/README.md)) and commit the regenerated files with the patches.
 
-*To deepen: confirm the two-pass procedure with the maintainer,
+*To deepen: confirm the two-pass procedure for `tools/02-duckplyr_df-methods.R` in practice, as it was for `tools/04-dplyr-tests.R`,
 and say whether `tools/06-patch-duckdb.R`'s output is committed to duckdb-r by hand.*

@@ -60,12 +60,28 @@ an entry whose comment gives no cause is a defect to investigate rather than a p
 
 ## Known state
 
-<!-- Update this section with the results of each porting round: the dplyr commit vendored, what was skipped and why, what remains. -->
+**The vendored files come from the dplyr tag `v1.2.1`, copied on 2026-10-22.**
+The history of `tests/testthat/test-dplyr-*.R` names the ref in the commit that last regenerated them, "Re-vendor dplyr 1.2.1 tests".
+The copies are not stamped with it, so `git log` on those files is how to tell, and a re-vendoring commit names its tag.
+`git -C .sync/dplyr-main describe --tags` names what the next run would copy.
 
-As of 2026-10-22, the vendored files were copied from `.sync/dplyr-main` at a dplyr commit this page does not record,
-and porting the vendored tests to the current dplyr is in progress in a separate branch.
-This section is to be replaced with that work's results: the dplyr commit vendored,
-the files added or dropped, the tests newly skipped with their reasons, and what remains open.
+**`test-recode-values.R` and `test-when.R` are vendored, and `test-defunct-each.R` and `test-defunct-lazyeval.R` are excluded.**
+The first two are new in dplyr 1.2.1, and the last two are deprecated tests, kept out with `"*"`.
+The vendored `recode_values()` tests carry a patch ([`patches/`](/handbook/dplyr-alignment/patches/README.md)):
+it scrubs the factor hash from their snapshots and qualifies `vctrs::vec_recode_values()`, which upstream finds through dplyr's imports.
 
-*To deepen: record the dplyr commit the vendored tests were last copied from,
-and fill in the known state from the porting round in progress.*
+**In the default configuration the vendored tests pass.**
+No failures were measured on 2026-10-22, with the tests that the skip lists name skipped.
+
+**The forced mode is not maintained.**
+`DUCKPLYR_FORCE=TRUE` fails 344 vendored tests, mostly because the fallback they need is an error there,
+and `non_force_only_tests` does not list them all.
+CI never sets it, so nothing keeps the list complete.
+
+**Two tests outside the vendored files fail locally.**
+The `wday()` and `strftime()` snapshots in `test-fallback.R` differ in how cli formats backticks, and are `skip_on_ci()`.
+
+The counts, the largest groups of forced failures, and the method are in
+[`experiments/2026-10-22-dplyr-tests-revendoring/`](/experiments/2026-10-22-dplyr-tests-revendoring/README.md).
+
+*To deepen: decide whether the forced mode is to be maintained, and complete `non_force_only_tests` if it is.*

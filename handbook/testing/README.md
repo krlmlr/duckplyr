@@ -33,8 +33,8 @@ At the end of the run it prints duckplyr's fallback statistics and the elapsed t
 * `DUCKPLYR_SKIP_DPLYR_TESTS=TRUE` skips every vendored dplyr file, which is the quick way through the native tests.
 * `DUCKPLYR_FORCE=TRUE` makes every fallback an error, which shows whether a test runs through DuckDB.
   `test-as_duckplyr_df.R` sets it for its own tests, and the vendored tests listed in `non_force_only_tests` skip under it.
+  Running the vendored suite under it as a whole is not maintained, and the state is
+  [`vendored-tests/`](/handbook/dplyr-alignment/vendored-tests/README.md)'s.
 * `DUCKPLYR_FALLBACK_FORCE=TRUE` makes every verb fall back, which tests the dplyr path.
 
 These variables are read by `rel_try()` and the vendored tests' headers; [`R/config.R`](/R/config.R) documents the user-facing ones.
-
-*To deepen: say whether and where the suite is run with `DUCKPLYR_FORCE=TRUE` as a whole, which `non_force_only_tests` exists for.*
