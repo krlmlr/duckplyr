@@ -86,7 +86,7 @@ For each verb (with both order-preserving and order-enforcing variants), runs th
 
 #### `06-patch-duckdb.R`
 
-Takes the generated `test-rel_api.R` and transforms it for use in the duckdb-r package (`../duckdb-r/tests/testthat/test-rel_api.R`). Removes `duckdb::` and `DBI::` namespace qualifiers and activates `skip_if_not(TEST_RE2)` guards.
+Takes the generated `test-rel_api.R` and transforms it for use in the duckdb-r package (`../../duckdb/duckdb-r/tests/testthat/test-rel_api.R`). Removes `duckdb::` and `DBI::` namespace qualifiers and activates `skip_if_not(TEST_RE2)` guards.
 
 #### `07-overwrite.R`
 
