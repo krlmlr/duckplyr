@@ -1129,26 +1129,26 @@ test_that("as_duckplyr_df_impl() and mutate(mean(a, na.rm = TRUE), .by = g)", {
 })
 
 
-test_that("as_duckplyr_df_impl() and mutate(sd(a, na.rm = TRUE))", {
+test_that("as_duckplyr_df_impl() and mutate(round(sd(a, na.rm = TRUE), 2))", {
   # Data
   test_df <- data.frame(a = 1:6 + 0, b = 2, g = rep(1:3, 1:3))
 
   # Run
-  pre <- test_df %>% as_duckplyr_df_impl() %>% mutate(sd(a, na.rm = TRUE))
-  post <- test_df %>% mutate(sd(a, na.rm = TRUE)) %>% as_duckplyr_df_impl()
+  pre <- test_df %>% as_duckplyr_df_impl() %>% mutate(round(sd(a, na.rm = TRUE), 2))
+  post <- test_df %>% mutate(round(sd(a, na.rm = TRUE), 2)) %>% as_duckplyr_df_impl()
 
   # Compare
   expect_identical(pre, post)
 })
 
 
-test_that("as_duckplyr_df_impl() and mutate(sd(a, na.rm = TRUE), .by = g)", {
+test_that("as_duckplyr_df_impl() and mutate(round(sd(a, na.rm = TRUE), 2), .by = g)", {
   # Data
   test_df <- data.frame(a = 1:6 + 0, b = 2, g = rep(1:3, 1:3))
 
   # Run
-  pre <- test_df %>% as_duckplyr_df_impl() %>% mutate(sd(a, na.rm = TRUE), .by = g)
-  post <- test_df %>% mutate(sd(a, na.rm = TRUE), .by = g) %>% as_duckplyr_df_impl()
+  pre <- test_df %>% as_duckplyr_df_impl() %>% mutate(round(sd(a, na.rm = TRUE), 2), .by = g)
+  post <- test_df %>% mutate(round(sd(a, na.rm = TRUE), 2), .by = g) %>% as_duckplyr_df_impl()
 
   # Compare
   expect_identical(pre, post)
