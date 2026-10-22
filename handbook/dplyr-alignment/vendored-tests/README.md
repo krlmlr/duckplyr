@@ -57,6 +57,7 @@ The reasons in use, each a kind of justification an entry may give:
 
 A real difference is also a limitation of duckplyr, so the issue link is what lets it be removed later;
 an entry whose comment gives no cause is a defect to investigate rather than a precedent.
+Revisiting the reasons of the entries in `duckplyr_tests` is tracked in [krlmlr/duckplyr#39](https://github.com/krlmlr/duckplyr/issues/39).
 
 ## Known state
 
@@ -77,12 +78,12 @@ No failures were measured on 2026-10-22 on the re-vendored branch, with the test
 `DUCKPLYR_FORCE=TRUE` fails 344 vendored tests, mostly because the fallback they need is an error there,
 and `non_force_only_tests` does not list them all.
 CI never sets it and nowhere else runs the suite with it, so nothing keeps the list complete.
-A separate CI matrix entry is planned, tracked in an issue.
+A separate CI matrix entry is planned, tracked in [krlmlr/duckplyr#35](https://github.com/krlmlr/duckplyr/issues/35).
 
 **Two tests outside the vendored files fail locally.**
-The `wday()` and `strftime()` snapshots in `test-fallback.R` differ in how cli formats backticks, and are `skip_on_ci()`.
+The `wday()` and `strftime()` snapshots in `test-fallback.R` differ in how cli formats backticks, and are `skip_on_ci()`; making them independent of the environment is tracked in [krlmlr/duckplyr#40](https://github.com/krlmlr/duckplyr/issues/40).
 
 The counts, the largest groups of forced failures, and the method are in
 [`experiments/2026-10-22-dplyr-tests-revendoring/`](/experiments/2026-10-22-dplyr-tests-revendoring/README.md).
 
-*To deepen: complete `non_force_only_tests` once the forced CI entry exists.*
+*To deepen: complete `non_force_only_tests` once the forced CI entry exists (https://github.com/krlmlr/duckplyr/issues/35).*

@@ -17,7 +17,7 @@ Both are clones of the fork [`krlmlr/dplyr`](https://github.com/krlmlr/dplyr), n
   On 2026-10-22 the fork's default branch was an ancestor of the tag `v1.2.1`, 130 commits behind it and with no commits of its own,
   and the vendored tests were taken from a detached checkout of that tag
   ([`vendored-tests/`](/handbook/dplyr-alignment/vendored-tests/README.md)).
-  No process keeps the fork, or this clone, in step with `tidyverse/dplyr` yet; this is tracked in an issue.
+  No process keeps the fork, or this clone, in step with `tidyverse/dplyr` yet; formalizing the sync is tracked in [krlmlr/duckplyr#37](https://github.com/krlmlr/duckplyr/issues/37).
 * `.sync/dplyr-revdep` tracks the branch `f-revdep-duckplyr`, which carries the rigged dplyr
   ([`rigged-dplyr/`](/handbook/dplyr-alignment/rigged-dplyr/README.md)).
   Building it pushes to the fork, so this clone needs write access there.
@@ -46,6 +46,7 @@ Only that script needs it, but `tools/99-sync.R` runs it before the overwrite st
 `pak::pak(dependencies = "Config/Needs/development")` installs what `DESCRIPTION` declares for development,
 which brings in most of what the scripts call.
 `rex`, which only `tools/90-patch-dplyr.R` uses, is declared nowhere and is installed by hand.
+Declaring `rex` and `constructive` as development dependencies is tracked in [krlmlr/duckplyr#38](https://github.com/krlmlr/duckplyr/issues/38).
 `constructive` is not on CRAN, so it is installed from <https://cynkra.r-universe.dev> first.
 Then `pak::local_install_dev_deps(upgrade = FALSE)` installs the rest without upgrading what is present.
 
