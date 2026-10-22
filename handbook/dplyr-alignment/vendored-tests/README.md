@@ -60,18 +60,18 @@ an entry whose comment gives no cause is a defect to investigate rather than a p
 
 ## Known state
 
-**The vendored files come from the dplyr tag `v1.2.1`, copied on 2026-10-22.**
-The history of `tests/testthat/test-dplyr-*.R` names the ref in the commit that last regenerated them, "Re-vendor dplyr 1.2.1 tests".
-The copies are not stamped with it, so `git log` on those files is how to tell, and a re-vendoring commit names its tag.
+**The vendored files on `main` come from dplyr 1.2.0.**
+The re-vendoring to the dplyr tag `v1.2.1` is in a separate pull request, branch `claude/vendor-dplyr-tests`, and this page says where its state differs.
+The copies are not stamped with their ref, so `git log` on `tests/testthat/test-dplyr-*.R` is how to tell, and a re-vendoring commit names its tag.
 `git -C .sync/dplyr-main describe --tags` names what the next run would copy.
 
-**`test-recode-values.R` and `test-when.R` are vendored, and `test-defunct-each.R` and `test-defunct-lazyeval.R` are excluded.**
+**With the re-vendoring merged, `test-recode-values.R` and `test-when.R` are vendored, and `test-defunct-each.R` and `test-defunct-lazyeval.R` are excluded.**
 The first two are new in dplyr 1.2.1, and the last two are deprecated tests, kept out with `"*"`.
-The vendored `recode_values()` tests carry a patch ([`patches/`](/handbook/dplyr-alignment/patches/README.md)):
+The vendored `recode_values()` tests then carry a patch, `patch-tests/test-dplyr-recode-values.patch` on that branch ([`patches/`](/handbook/dplyr-alignment/patches/README.md)):
 it scrubs the factor hash from their snapshots and qualifies `vctrs::vec_recode_values()`, which upstream finds through dplyr's imports.
 
 **In the default configuration the vendored tests pass.**
-No failures were measured on 2026-10-22, with the tests that the skip lists name skipped.
+No failures were measured on 2026-10-22 on the re-vendored branch, with the tests that the skip lists name skipped.
 
 **The forced mode is not maintained.**
 `DUCKPLYR_FORCE=TRUE` fails 344 vendored tests, mostly because the fallback they need is an error there,

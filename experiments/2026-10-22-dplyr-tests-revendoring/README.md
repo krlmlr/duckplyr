@@ -11,7 +11,7 @@
 The tests were regenerated with `tools/04-dplyr-tests.R` from `.sync/dplyr-main` checked out at the tag, detached.
 The order of the run, and the stub that `gert::git_pull()` needs on a detached checkout, are
 [`sync/`](/handbook/dplyr-alignment/sync/README.md).
-The three commits are `8c37380` (the regenerated tests and the `tools/00-funs.R` entries), `6aa65bb` (`test-as_duckplyr_df.R`),
+The three commits are on the branch `claude/vendor-dplyr-tests`, in a separate pull request, and are `8c37380` (the regenerated tests and the `tools/00-funs.R` entries), `6aa65bb` (`test-as_duckplyr_df.R`),
 and `17a0faf` (the `recode_values()` patch).
 
 Each configuration ran the test suite with the filter and variables below.
