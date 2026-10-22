@@ -40,9 +40,11 @@ and a new infrastructure file under `R/` is copied into dplyr until it is added 
 
 * `R/duckplyr.R` sets `dplyr_mode <- TRUE`, which the copied code reads,
   and defines no-op stubs for the recording and telemetry functions the copied code calls.
-* `src/attribs.cpp` provides `copy_df_attribs`.
 * `DESCRIPTION` carries a development version above dplyr's CRAN release, and duckplyr's extra imports.
 * `NAMESPACE` stays dplyr's, and the branch is never re-documented with roxygen2.
+* `.github/workflows/revdep4.yaml` differs from this repository's copy by the push trigger and the base image source below.
+
+`src/` is dplyr's own, so the rig adds no compiled code.
 
 ## Rebasing onto a new dplyr release
 
@@ -60,7 +62,8 @@ since the branch is published.
 
 ## Verifying it locally
 
-1. Build and install it into a separate library:
+1. Build and install it into a separate library, under the R version the revdep run uses (its `r-version` input),
+   since an older R misses what a newer one removed from its C API:
    `R CMD build --no-build-vignettes --no-manual`, then `R CMD INSTALL -l <lib>` on the tarball.
 2. Smoke-test it: `dplyr:::stats$attempts` grows and `dplyr:::stats$fallback` stays at zero for supported verbs,
    and with `DUCKPLYR_FALLBACK_INFO=TRUE` an unsupported expression such as `paste0()` reports its fallback.
@@ -89,7 +92,7 @@ The `dry-run` input stops after planning, and the log of the plan job says how m
 the chosen `which` and `depth` mean, and whether the set needs splitting with `part`.
 The workflow file is the list of inputs.
 The run of 2026-10-22 with `which = most` and `depth = 1` was
-[39741066447](https://github.com/krlmlr/dplyr/actions/runs/39741066447), planned by the dry run
+[39741480721](https://github.com/krlmlr/dplyr/actions/runs/39741480721), planned by the dry run
 [39739520527](https://github.com/krlmlr/dplyr/actions/runs/39739520527).
 
 **The base image is taken from `krlmlr/duckplyr`, because the fork's token cannot publish one.**
