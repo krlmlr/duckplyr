@@ -1,5 +1,7 @@
 # gh-analysis
 
+*Handbook: [`layout/`](/handbook/layout/README.md) places this directory in the repository.*
+
 This directory contains code to analyze [GitHub activity data](https://console.cloud.google.com/marketplace/product/github/github-repos) available on Big Query.
 The data is a few years old, but we do not expect major shifts in the outcome of the analysis by using more recent data.
 

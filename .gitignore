@@ -6,3 +6,4 @@ README_cache/
 *.tar.gz
 *.Rcheck/
 .ccache/
+.claude/worktrees/

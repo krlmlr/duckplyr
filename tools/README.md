@@ -1,5 +1,9 @@
 # tools/
 
+*Handbook: [`dplyr-alignment/setup/`](/handbook/dplyr-alignment/setup/README.md) owns the prerequisites,
+[`dplyr-alignment/sync/`](/handbook/dplyr-alignment/sync/README.md) the sync workflow,
+and [`benchmarks/`](/handbook/benchmarks/README.md) the TPC-H workflows; this page is the per-script reference.*
+
 Developer scripts for code generation, testing, and benchmarking in duckplyr.
 Most scripts are meant to be run with `source("tools/<script>.R", echo = TRUE)` from the package root directory.
 
