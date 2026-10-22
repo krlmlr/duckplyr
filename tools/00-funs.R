@@ -191,6 +191,12 @@ duckplyr_tests <- head(
     "test-data-mask.R" = c(
       "*" # internals
     ),
+    "test-defunct-each.R" = c(
+      "*" # deprecated
+    ),
+    "test-defunct-lazyeval.R" = c(
+      "*" # deprecated
+    ),
     "test-defunct.R" = c(
       "*" # deprecated
     ),
@@ -335,6 +341,9 @@ duckplyr_tests <- head(
     "test-rank.R" = c(
       NULL
     ),
+    "test-recode-values.R" = c(
+      NULL
+    ),
     "test-recode.R" = c(
       "*" # deprecated
     ),
@@ -400,6 +409,9 @@ duckplyr_tests <- head(
     ),
     "test-vec-case-when.R" = c(
       "*" # internals
+    ),
+    "test-when.R" = c(
+      NULL
     ),
     NULL
   )
