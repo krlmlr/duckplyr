@@ -20,6 +20,10 @@
 # Each job writes its findings to the job summary,
 # and the `report` job posts the results to the open release pull request.
 on:
+  # Temporary, on a one-off branch only: a push run registers this workflow for dispatch.
+  push:
+    branches:
+      - claude/register-release-workflows
   workflow_dispatch:
 
 name: release-gate
@@ -33,6 +37,7 @@ permissions:
 
 jobs:
   gate:
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-26.04
     timeout-minutes: 15
 
@@ -51,6 +56,7 @@ jobs:
         uses: BristolMyersSquibb/blockr.ci/.github/actions/release-gate@5ee8e2be16e71e96628c6c5c60c20c03f1b35155
 
   docs:
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-26.04
     timeout-minutes: 60
 
@@ -82,6 +88,7 @@ jobs:
         uses: BristolMyersSquibb/blockr.ci/.github/actions/release-docs@5ee8e2be16e71e96628c6c5c60c20c03f1b35155
 
   soft:
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-26.04
     timeout-minutes: 120
 
@@ -119,7 +126,7 @@ jobs:
   # Posts the result to the open release pull request, one comment per workflow, updated in place.
   report:
     needs: [gate, docs, soft]
-    if: always()
+    if: always() && github.event_name == 'workflow_dispatch'
 
     runs-on: ubuntu-26.04
     timeout-minutes: 5

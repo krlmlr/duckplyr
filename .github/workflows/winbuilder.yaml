@@ -12,6 +12,10 @@
 # The `report` job posts what was uploaded to the open release pull request;
 # win-builder's verdict arrives only by e-mail.
 on:
+  # Temporary, on a one-off branch only: a push run registers this workflow for dispatch.
+  push:
+    branches:
+      - claude/register-release-workflows
   workflow_dispatch:
     inputs:
       queues:
@@ -30,6 +34,7 @@ permissions:
 
 jobs:
   winbuilder:
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-26.04
     timeout-minutes: 60
 
@@ -104,7 +109,7 @@ jobs:
   # Posts the result to the open release pull request, one comment per workflow, updated in place.
   report:
     needs: [winbuilder]
-    if: always()
+    if: always() && github.event_name == 'workflow_dispatch'
 
     runs-on: ubuntu-26.04
     timeout-minutes: 5
