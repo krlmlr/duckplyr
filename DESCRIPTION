@@ -40,7 +40,6 @@ Suggests:
     brio,
     callr,
     conflicted,
-    constructive (>= 1.0.0),
     curl,
     dbplyr,
     hms,
