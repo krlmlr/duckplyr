@@ -61,5 +61,6 @@ A vendored test that fails is either fixed in `R/` or skipped with a reason
 Then run the tests ([`testing/`](/handbook/testing/README.md)) and commit the regenerated files with the patches.
 
 **The output of `tools/06-patch-duckdb.R` is meant to be committed to duckdb-r, ideally before each duckplyr release.**
+The generated `test-rel_api.R` was not synced to duckdb-r before the 1.2.2 patch release ([`releases/`](/handbook/releases/README.md)).
 The generated `test-rel_api.R` is not yet synced automatically, which [krlmlr/duckplyr#34](https://github.com/krlmlr/duckplyr/issues/34) tracks.
 The two-pass procedure above is the maintainer's confirmed way of taking dplyr's changes in.

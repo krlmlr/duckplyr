@@ -20,6 +20,7 @@ What stays outside the tree, intent and evidence, and where each lives, is [`met
 * [`layout/`](layout/): what each top-level directory holds, and which files are generated and by what
 * [`meta/`](meta/): the rules of this tree, its forms and growth moves, how prose is written here, the vocabulary,
   the evidence convention, and what this repository decides for itself
+* [`releases/`](releases/): cutting a patch release from an earlier release tag, as done for 1.2.2
 * [`testing/`](testing/): how the test suite is laid out, how to run it, and the environment variables that shape it
 * [`translations/`](translations/): how R functions inside verbs are translated to DuckDB, and how a new one is added
 * [`verbs/`](verbs/): how a dplyr verb is implemented, falls back, and gains support for more of its arguments
