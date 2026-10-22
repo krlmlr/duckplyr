@@ -75,6 +75,10 @@ Config/testthat/edition: 3
 Config/testthat/parallel: false
 Config/testthat/start-first: rel_api, tpch, as_duckplyr_df, dplyr-mutate,
     dplyr-filter, dplyr-count-tally
+Config/gha/extra-packages:
+    arrow=?ignore-build-errors
+Config/comment/gha/extra-packages: arrow does not compile
+    on aarch64 Windows.
 Encoding: UTF-8
 Roxygen: list( markdown = TRUE, roclets = c("collate", "namespace", "rd",
     "roxyglobals::global_roclet") )
