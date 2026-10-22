@@ -60,5 +60,5 @@ A vendored test that fails is either fixed in `R/` or skipped with a reason
 ([`vendored-tests/`](/handbook/dplyr-alignment/vendored-tests/README.md)).
 Then run the tests ([`testing/`](/handbook/testing/README.md)) and commit the regenerated files with the patches.
 
-*To deepen: confirm the two-pass procedure for `tools/02-duckplyr_df-methods.R` in practice, as it was for `tools/04-dplyr-tests.R`,
-and say whether `tools/06-patch-duckdb.R`'s output is committed to duckdb-r by hand.*
+**The output of `tools/06-patch-duckdb.R` is meant to be committed to duckdb-r, ideally before each duckplyr release.**
+The two-pass procedure above is the maintainer's confirmed way of taking dplyr's changes in.

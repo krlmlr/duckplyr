@@ -71,6 +71,9 @@ since the branch is published.
 
 ## Checking dplyr's reverse dependencies
 
+**The earlier route was the revdep cloud provided by Posit.**
+The branch now runs its own workflow instead, described next.
+
 **The branch runs its own copy of `revdep4.yaml`**, taken from this repository,
 whose header comment explains the engine and why its sequential, one-container-per-package design replaced `revdep2.yaml`'s.
 
@@ -97,5 +100,4 @@ A package reported as newly broken is a difference between duckplyr and dplyr to
 and one that failed to check is an infrastructure problem.
 Broken packages never fail the run; only infrastructure failures do.
 
-*To deepen: record the test results of the rebased rig and the triage of the newly broken packages as experiments,
-and settle whether `.sync/dplyr-main` should track `tidyverse/dplyr` now that the fork's default branch is unused.*
+*To deepen: record the test results of the rebased rig and the triage of the newly broken packages as experiments.*

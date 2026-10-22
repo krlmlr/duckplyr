@@ -17,6 +17,7 @@ Both are clones of the fork [`krlmlr/dplyr`](https://github.com/krlmlr/dplyr), n
   On 2026-10-22 the fork's default branch was an ancestor of the tag `v1.2.1`, 130 commits behind it and with no commits of its own,
   and the vendored tests were taken from a detached checkout of that tag
   ([`vendored-tests/`](/handbook/dplyr-alignment/vendored-tests/README.md)).
+  No process keeps the fork, or this clone, in step with `tidyverse/dplyr` yet; this is tracked in an issue.
 * `.sync/dplyr-revdep` tracks the branch `f-revdep-duckplyr`, which carries the rigged dplyr
   ([`rigged-dplyr/`](/handbook/dplyr-alignment/rigged-dplyr/README.md)).
   Building it pushes to the fork, so this clone needs write access there.
@@ -59,4 +60,4 @@ the comment at that check names the alternative, installing dplyr from source wi
 [`tools/clone.sh`](/tools/clone.sh) and [`tools/orbstack.sh`](/tools/orbstack.sh) script a fresh machine with these steps,
 most of them commented out, and are a record of one maintainer's setup rather than a supported path.
 
-*To deepen: verify the steps on a fresh clone, and settle which dplyr `.sync/dplyr-main` should track.*
+*To deepen: verify the steps on a fresh clone.*

@@ -29,7 +29,8 @@ and an R comment aims for it.
 Shell scripts and workflow files have no formatter, and a comment in one aims for 80 columns.
 
 **Who the text may name.**
-The handbook names roles, such as the maintainer, rather than people.
+The handbook names roles, such as the maintainer, rather than people,
+which stays correct as contributors join and keeps individuals unnamed in a public repository.
 `DESCRIPTION` and `NEWS.md` name people where their formats require it, and are not the handbook's to change.
 
 **The language of the prose and of the domain.**

@@ -76,7 +76,8 @@ No failures were measured on 2026-10-22, with the tests that the skip lists name
 **The forced mode is not maintained.**
 `DUCKPLYR_FORCE=TRUE` fails 344 vendored tests, mostly because the fallback they need is an error there,
 and `non_force_only_tests` does not list them all.
-CI never sets it, so nothing keeps the list complete.
+CI never sets it and nowhere else runs the suite with it, so nothing keeps the list complete.
+A separate CI matrix entry is planned, tracked in an issue.
 
 **Two tests outside the vendored files fail locally.**
 The `wday()` and `strftime()` snapshots in `test-fallback.R` differ in how cli formats backticks, and are `skip_on_ci()`.
@@ -84,4 +85,4 @@ The `wday()` and `strftime()` snapshots in `test-fallback.R` differ in how cli f
 The counts, the largest groups of forced failures, and the method are in
 [`experiments/2026-10-22-dplyr-tests-revendoring/`](/experiments/2026-10-22-dplyr-tests-revendoring/README.md).
 
-*To deepen: decide whether the forced mode is to be maintained, and complete `non_force_only_tests` if it is.*
+*To deepen: complete `non_force_only_tests` once the forced CI entry exists.*
