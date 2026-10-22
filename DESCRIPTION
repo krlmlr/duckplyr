@@ -40,7 +40,6 @@ Suggests:
     brio,
     callr,
     conflicted,
-    constructive (>= 1.0.0),
     curl,
     dbplyr,
     hms,
@@ -83,4 +82,4 @@ Encoding: UTF-8
 Roxygen: list( markdown = TRUE, roclets = c("collate", "namespace", "rd",
     "roxyglobals::global_roclet") )
 VignetteBuilder: knitr
-Config/roxygen2/version: 8.1.0.9000
+Config/roxygen2/version: 8.1.1.9000
