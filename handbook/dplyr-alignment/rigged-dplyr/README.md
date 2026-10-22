@@ -89,8 +89,17 @@ The `dry-run` input stops after planning, and the log of the plan job says how m
 the chosen `which` and `depth` mean, and whether the set needs splitting with `part`.
 The workflow file is the list of inputs.
 The run of 2026-10-22 with `which = most` and `depth = 1` was
-[39740058197](https://github.com/krlmlr/dplyr/actions/runs/39740058197), planned by the dry run
+[39741066447](https://github.com/krlmlr/dplyr/actions/runs/39741066447), planned by the dry run
 [39739520527](https://github.com/krlmlr/dplyr/actions/runs/39739520527).
+
+**The base image is taken from `krlmlr/duckplyr`, because the fork's token cannot publish one.**
+`GITHUB_TOKEN` is denied when the base-image job pushes a new package to the fork's GitHub container registry.
+So the branch's copy sets `REVDEPX_BASE_REPO=ghcr.io/krlmlr/duckplyr/revdepx-base`, and the job reads the image from there.
+The image's tag is derived from the content of the recipe it is built from, so the image published by `krlmlr/duckplyr` is the same image.
+After the recipe in `cynkra/cynkratemplate` changes, the job fails until `krlmlr/duckplyr` has published the new tag,
+which a `revdep4.yaml` run there does;
+granting the fork's token write access to its registry package is the other way out, and an owner's setting.
+The push of the universe image is denied too, which does no harm: the job also uploads it as an artifact, which the shards load.
 
 **Reading the results.**
 The `revdepx-report` artifact holds the revdepcheck-style report;

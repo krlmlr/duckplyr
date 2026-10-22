@@ -12,8 +12,8 @@ Both are clones of the fork [`krlmlr/dplyr`](https://github.com/krlmlr/dplyr), n
 
 * `.sync/dplyr-main` tracks the fork's default branch.
   The method sources and the vendored tests are taken from it, and the scripts pull it before reading.
-  That branch was reported stale and unused when the rigged dplyr was last rebased,
-  so a sync from it may read an old dplyr until this clone is pointed at a current one.
+  That branch has had no commit since 2024-10, so a sync from it reads an old dplyr;
+  whether this clone should track `tidyverse/dplyr`'s main branch or its latest release tag is not settled.
   On 2026-10-22 the fork's default branch was an ancestor of the tag `v1.2.1`, 130 commits behind it and with no commits of its own,
   and the vendored tests were taken from a detached checkout of that tag
   ([`vendored-tests/`](/handbook/dplyr-alignment/vendored-tests/README.md)).
