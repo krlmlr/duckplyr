@@ -58,7 +58,6 @@ Suggests:
     withr
 Enhances: 
     qs2
-Additional_repositories: https://cynkra.r-universe.dev
 Config/Needs/check: anthonynorth/roxyglobals
 Config/Needs/development: 
     devtools,
@@ -78,10 +77,8 @@ Config/testthat/start-first: rel_api, tpch, as_duckplyr_df, dplyr-mutate,
     dplyr-filter, dplyr-count-tally
 Config/gha/extra-packages:
     arrow=?ignore-build-errors
-    constructive=?ignore
 Config/comment/gha/extra-packages: arrow does not compile
-    on aarch64 Windows. constructive was archived on CRAN and is installed
-    from Additional_repositories after the dependency solve.
+    on aarch64 Windows.
 Encoding: UTF-8
 Roxygen: list( markdown = TRUE, roclets = c("collate", "namespace", "rd",
     "roxyglobals::global_roclet") )
