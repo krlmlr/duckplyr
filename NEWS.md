@@ -1,4 +1,4 @@
-# duckplyr 1.2.2
+# duckplyr 1.2.2 (2026-10-22)
 
 ## Features
 

@@ -25,8 +25,8 @@
 # 2. Cut: create the release branch, for instance `release-X.Y.Z`, from the chosen commit of `main`.
 #    Remove fledge's marker line from the top of NEWS.md, and never run `fledge::bump_version()` afterwards.
 #    Set `Version: X.Y.Z` in DESCRIPTION by hand.
-#    Fold the development sections into one section headed exactly `# duckplyr X.Y.Z`, without a date,
-#    because the `tag` job looks for that heading; one bullet per change,
+#    Fold the development sections into one section headed exactly `# duckplyr X.Y.Z`,
+#    optionally followed by ` (YYYY-MM-DD)`, because the `tag` job looks for that heading; one bullet per change,
 #    grouped as the tidyverse style guide does (https://style.tidyverse.org/news.html), breaking changes first.
 #    Open the release pull request into `main`,
 #    and the checklist issue, whose body carries `<!-- release-checklist: duckplyr X.Y.Z -->`.
@@ -244,8 +244,9 @@ jobs:
 
           message="$RUNNER_TEMP/tag-message.md"
           # The section from the version's heading to the next one, without the leading "# ".
+          # The heading may carry a date, as in "# pkg 1.2.3 (2026-01-31)".
           awk -v heading="# $pkg_name $pkg_version" '
-            $0 == heading { found = 1; print substr($0, 3); next }
+            $0 == heading || index($0, heading " (") == 1 { found = 1; print substr($0, 3); next }
             found && /^# / { exit }
             found { print }
           ' NEWS.md > "$message"
