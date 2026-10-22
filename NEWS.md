@@ -1,4 +1,9 @@
-<!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
+# duckplyr 1.2.2
+
+## Features
+
+- duckplyr now works with duckdb 2.0.0. It refuses to load with duckdb 3.0.0 or later and asks to upgrade duckplyr instead.
+
 
 # duckplyr 1.2.1 (2026-03-09)
 
