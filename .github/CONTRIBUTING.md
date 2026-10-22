@@ -61,7 +61,7 @@ New translations must change code in two places:
 
     - In some cases (like with `lubridate::month()`), a function of the exact same name already exists in DuckDB, and there's nothing more to do.
 
-    - In other cases, a macro must be defined in `relational-duckdb.R` that implements the translation.
+    - In other cases, a macro must be defined in `duckplyr_macros` in `R/translate.R` (it is registered in `R/relational-duckdb.R`) that implements the translation.
 
     - Do you need to do even more work? Let's discuss!
 

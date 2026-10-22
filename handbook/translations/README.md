@@ -20,7 +20,6 @@ This leaf holds what the guide does not say.
   with special cases for functions whose arguments need checking or rewriting and aliases for functions DuckDB names differently.
 * `duckplyr_macros` defines in SQL the functions DuckDB lacks or defines with different semantics;
   `R/relational-duckdb.R` registers them as macros on every new connection.
-  The guide places the macros in `R/relational-duckdb.R`, which is where they are registered rather than defined.
 
 **A function without a translation falls back.**
 Translation raises an error, which `rel_try()` turns into a fallback to dplyr for the whole verb call.
@@ -36,5 +35,4 @@ The guide's step adds an expression to the `mutate` entry of `test_extra_arg_map
 and `tools/03-tests.R` turns each entry into a test in `tests/testthat/test-as_duckplyr_df.R`;
 [`tests/testthat/test-translate.R`](/tests/testthat/test-translate.R) tests the translation layer directly.
 
-*To deepen: fix the guide's statement about where the macros live,
-and say how the window-function aliases in `rel_translate_lang()` are extended.*
+*To deepen: say how the window-function aliases in `rel_translate_lang()` are extended.*
