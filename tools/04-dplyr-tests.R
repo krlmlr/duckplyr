@@ -128,3 +128,49 @@ lock_dplyr_test <- function(path) {
 }
 
 walk(targets, lock_dplyr_test)
+
+# Patch files -------------------------------------------------------------------------
+
+# Apply manual tweaks (e.g. snapshot scrubbers) on top of the generated test
+# files, mirroring the patch workflow in 02-duckplyr_df-methods.R.
+patches <- fs::dir_ls("patch-tests")
+
+walk(
+  patches,
+  ~ system(paste0("patch -p1 < ", .x))
+)
+
+# Stop here to overwrite files if the test generation is updated
+
+# Collect new patches -----------------------------------------------------------------
+
+test_status <- gert::git_status(
+  pathspec = "tests/testthat/test-dplyr-*.R"
+)$file
+
+# Use this to refresh all patches
+# test_status <- fs::dir_ls("tests/testthat", glob = "test-dplyr-*.R")
+
+walk(test_status, function(file) {
+  patch_path <- gsub(
+    "tests/testthat/(.*)[.]R",
+    "patch-tests/\\1.patch",
+    file
+  )
+  if (fs::file_exists(patch_path)) {
+    system(paste0(
+      "patch -p1 -R < ",
+      patch_path
+    ))
+  }
+  system(paste0(
+    "git diff -R -- ",
+    file,
+    " | grep -v '^index' > ",
+    patch_path
+  ))
+  system(paste0(
+    "git checkout -- ",
+    file
+  ))
+})

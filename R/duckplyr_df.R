@@ -89,7 +89,6 @@ prudence_parse <- function(prudence, remote, call = caller_env()) {
         )
       }
     }
-    allow_materialization <- is.finite(n_rows) || is.finite(n_cells)
     prudence <- "stingy"
   } else if (!is.character(prudence)) {
     cli::cli_abort(
@@ -113,8 +112,7 @@ prudence_parse <- function(prudence, remote, call = caller_env()) {
       error_call = call
     )
 
-    allow_materialization <- !identical(prudence, "stingy")
-    if (!allow_materialization) {
+    if (identical(prudence, "stingy")) {
       n_cells <- 0
     } else if (identical(prudence, "thrifty")) {
       if (isTRUE(remote)) {

@@ -3,8 +3,7 @@
 #' @description
 #' `r lifecycle::badge("experimental")`
 #'
-#' This function converts a lazy duckplyr frame or a data frame
-#' to a dbplyr table in duckplyr's internal connection.
+#' This function converts a lazy duckplyr frame or a data frame to a dbplyr table in duckplyr's internal connection.
 #' This allows using dbplyr functions on the data,
 #' including hand-written SQL queries.
 #' Use [as_duckdb_tibble()] to convert back to a lazy duckplyr frame.
@@ -50,6 +49,6 @@ as_tbl <- function(.data) {
   duckdb$rel_to_view(rel, "", name, temporary = TRUE)
 
   out <- dplyr::tbl(con, name)
-  attr(out, "duckplyr_scope_guard") <- scope_guard
+  attr(out$lazy_query, "duckplyr_scope_guard") <- scope_guard
   out
 }

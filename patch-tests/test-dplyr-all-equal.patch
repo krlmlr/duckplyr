@@ -1,0 +1,30 @@
+diff --git b/tests/testthat/test-dplyr-all-equal.R a/tests/testthat/test-dplyr-all-equal.R
+--- b/tests/testthat/test-dplyr-all-equal.R
++++ a/tests/testthat/test-dplyr-all-equal.R
+@@ -53,7 +53,7 @@ test_that("factors equal only if levels equal", {
+   local_options(lifecycle_verbosity = "quiet")
+   df1 <- tibble(x = factor(c("a", "b")))
+   df2 <- tibble(x = factor(c("a", "d")))
+-  expect_snapshot({
++  expect_snapshot(transform = scrub_hash, {
+     all_equal(df1, df2)
+     all_equal(df2, df1)
+   })
+@@ -67,7 +67,7 @@ test_that("factor comparison requires strict equality of levels (#2440)", {
+   expect_true(all_equal(df1, df2, convert = TRUE))
+   expect_true(all_equal(df2, df1, convert = TRUE))
+ 
+-  expect_snapshot({
++  expect_snapshot(transform = scrub_hash, {
+     all_equal(df1, df2)
+     all_equal(df2, df1)
+   })
+@@ -120,7 +120,7 @@ test_that("equality test fails when convert is FALSE and types don't match (#148
+   df2 <- tibble(x = factor("a"))
+   expect_true(all_equal(df1, df2, convert = TRUE))
+ 
+-  expect_snapshot({
++  expect_snapshot(transform = scrub_hash, {
+     all_equal(df1, df2, convert = FALSE)
+   })
+ })
