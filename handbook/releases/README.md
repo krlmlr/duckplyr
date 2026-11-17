@@ -76,10 +76,12 @@ Dispatch it with `ref=<sha>` rather than the branch name, so the head of the rel
 
 ## Submitting and tagging
 
-**`cran-submission.yaml` tags and drafts the GitHub release in the repository it runs in.**
-[`cran-submission.yaml`](/.github/workflows/cran-submission.yaml) submits to CRAN,
+**[`cran-submission.yaml`](/.github/workflows/cran-submission.yaml) tags and drafts the GitHub release in the repository it runs in.**
+It submits to CRAN,
 and [`cran-release.yaml`](/.github/workflows/cran-release.yaml) publishes the draft once Posit's package manager serves the version.
 Run in a fork, both leave the tag and the GitHub release in the fork.
+The release workflows call the actions `cran-submit`, `cran-release`, and `release-report` under [`.github/actions/`](/.github/actions/),
+and the scripts of the first two share the shell library in `cran-lib/`.
 
 ## After the release
 
@@ -100,6 +102,8 @@ duckplyr 1.2.2 is on CRAN, and the fork's GitHub release v1.2.2 is published.
 The release is merged back into the fork's default branch, which is at 1.2.2.9000.
 `tidyverse/duckplyr` has not caught up yet:
 its main has not been fast-forwarded, and its GitHub release v1.2.2 does not exist.
+[krlmlr/duckplyr#48](https://github.com/krlmlr/duckplyr/pull/48) carries the catch-up:
+a merge of `tidyverse/duckplyr`'s main into the fork's default branch, which `tidyverse/duckplyr`'s main can be fast-forwarded to.
 [tidyverse/duckplyr#963](https://github.com/tidyverse/duckplyr/pull/963), the support for duckdb 2.0 proposed there,
 is superseded by the release.
 

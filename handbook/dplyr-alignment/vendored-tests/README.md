@@ -71,8 +71,8 @@ and a re-vendoring commit names its tag.
 **With the re-vendoring merged, `test-recode-values.R` and `test-when.R` are vendored,
 and `test-defunct-each.R` and `test-defunct-lazyeval.R` are excluded.**
 The first two are new in dplyr 1.2.1, and the last two are deprecated tests, kept out with `"*"`.
-The vendored `recode_values()` tests then carry a patch, `patch-tests/test-dplyr-recode-values.patch` on that branch
-([`patches/`](/handbook/dplyr-alignment/patches/README.md)):
+The vendored `recode_values()` tests then carry a patch,
+`patch-tests/test-dplyr-recode-values.patch` on that branch ([`patches/`](/handbook/dplyr-alignment/patches/README.md)):
 it scrubs the factor hash from their snapshots and qualifies `vctrs::vec_recode_values()`, which upstream finds through dplyr's imports.
 
 **In the default configuration the vendored tests pass.**

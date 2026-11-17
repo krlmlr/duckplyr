@@ -46,8 +46,8 @@ Only that script needs it, but `tools/99-sync.R` runs it before the overwrite st
 `pak::pak(dependencies = "Config/Needs/development")` installs what `DESCRIPTION` declares for development,
 which brings in most of what the scripts call.
 `rex`, which only `tools/90-patch-dplyr.R` uses, is declared nowhere and is installed by hand.
-Declaring `rex` and `constructive` as development dependencies is tracked in
-[krlmlr/duckplyr#38](https://github.com/krlmlr/duckplyr/issues/38).
+Declaring `rex` and `constructive` as development dependencies
+is tracked in [krlmlr/duckplyr#38](https://github.com/krlmlr/duckplyr/issues/38).
 `constructive` is not on CRAN, so it is installed from <https://cynkra.r-universe.dev> first.
 Then `pak::local_install_dev_deps(upgrade = FALSE)` installs the rest without upgrading what is present.
 

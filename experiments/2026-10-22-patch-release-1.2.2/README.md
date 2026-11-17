@@ -21,8 +21,13 @@ and nothing in this repository checks it.
 and the tag `v1.2.2` is its head,
 [`bec8e70`](https://github.com/krlmlr/duckplyr/commit/bec8e70).
 The user-facing fix was the support for duckdb 2.0.0, cherry-picked with `-x`, followed by snapshot fixes for duckdb 2.0.
-The release workflows were adapted from the branch `claude/rsqlite-cran-release` of r-dbi/RSQLite.
+The release workflows `winbuilder`, `release-gate`, `cran-submission`, and `cran-release`,
+and the actions `cran-lib`, `cran-submit`, `cran-release`, and `release-report` under `.github/actions/`,
+were adapted from the branch `claude/rsqlite-cran-release` of r-dbi/RSQLite.
+`cran-comments.md` and its `.Rbuildignore` line were deleted.
 `constructive` was dropped, since it was archived on CRAN on 2026-09-27.
+The vctrs factor-hash snapshots were accepted in three vendored dplyr test files,
+the snapshots of `dplyr-all-equal`, `dplyr-bind-rows`, and `dplyr-case-when` under `tests/testthat/_snaps/`.
 
 **`pull_request` CI did not run on the release pull request**, since the branch from the old tag conflicted with the default branch.
 `R-CMD-check.yaml` was dispatched on the branch instead.
