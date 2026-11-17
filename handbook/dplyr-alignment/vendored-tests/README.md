@@ -62,13 +62,17 @@ Revisiting the reasons of the entries in `duckplyr_tests` is tracked in [krlmlr/
 ## Known state
 
 **The vendored files on `main` come from dplyr 1.2.0.**
-The re-vendoring to the dplyr tag `v1.2.1` is in a separate pull request, branch `claude/vendor-dplyr-tests`, and this page says where its state differs.
-The copies are not stamped with their ref, so `git log` on `tests/testthat/test-dplyr-*.R` is how to tell, and a re-vendoring commit names its tag.
+The re-vendoring to the dplyr tag `v1.2.1` is in a separate pull request,
+and this page says where its state differs.
+The copies are not stamped with their ref, so `git log` on `tests/testthat/test-dplyr-*.R` is how to tell,
+and a re-vendoring commit names its tag.
 `git -C .sync/dplyr-main describe --tags` names what the next run would copy.
 
-**With the re-vendoring merged, `test-recode-values.R` and `test-when.R` are vendored, and `test-defunct-each.R` and `test-defunct-lazyeval.R` are excluded.**
+**With the re-vendoring merged, `test-recode-values.R` and `test-when.R` are vendored,
+and `test-defunct-each.R` and `test-defunct-lazyeval.R` are excluded.**
 The first two are new in dplyr 1.2.1, and the last two are deprecated tests, kept out with `"*"`.
-The vendored `recode_values()` tests then carry a patch, `patch-tests/test-dplyr-recode-values.patch` on that branch ([`patches/`](/handbook/dplyr-alignment/patches/README.md)):
+The vendored `recode_values()` tests then carry a patch, `patch-tests/test-dplyr-recode-values.patch` on that branch
+([`patches/`](/handbook/dplyr-alignment/patches/README.md)):
 it scrubs the factor hash from their snapshots and qualifies `vctrs::vec_recode_values()`, which upstream finds through dplyr's imports.
 
 **In the default configuration the vendored tests pass.**
@@ -81,7 +85,8 @@ CI never sets it and nowhere else runs the suite with it, so nothing keeps the l
 A separate CI matrix entry is planned, tracked in [krlmlr/duckplyr#35](https://github.com/krlmlr/duckplyr/issues/35).
 
 **Two tests outside the vendored files fail locally.**
-The `wday()` and `strftime()` snapshots in `test-fallback.R` differ in how cli formats backticks, and are `skip_on_ci()`; making them independent of the environment is tracked in [krlmlr/duckplyr#40](https://github.com/krlmlr/duckplyr/issues/40).
+The `wday()` and `strftime()` snapshots in `test-fallback.R` differ in how cli formats backticks, and are `skip_on_ci()`.
+Making them independent of the environment is tracked in [krlmlr/duckplyr#40](https://github.com/krlmlr/duckplyr/issues/40).
 
 The counts, the largest groups of forced failures, and the method are in
 [`experiments/2026-10-22-dplyr-tests-revendoring/`](/experiments/2026-10-22-dplyr-tests-revendoring/README.md).

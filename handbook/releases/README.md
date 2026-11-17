@@ -6,77 +6,70 @@ status: draft
 
 How a patch release is cut from an earlier release tag instead of from the default branch,
 when the default branch has moved on to changes that are not meant to ship.
-The one run so far is duckplyr 1.2.2 of 2026-10-22, cut from v1.2.1, and this page describes what that run did.
-duckplyr 1.2.2 is on CRAN.
 The bounds the fix may need to move are [`dependencies/`](/handbook/dependencies/README.md)'s,
 what the workflows named below check is [`ci/`](/handbook/ci/README.md)'s,
 and the shared dispatch trick is [`dplyr-alignment/rigged-dplyr/`](/handbook/dplyr-alignment/rigged-dplyr/README.md)'s.
+duckplyr 1.2.2 was cut this way from v1.2.1,
+and [its record](/experiments/2026-10-22-patch-release-1.2.2/README.md) holds what that run did and what blocked it.
 
-**What is checked here, and what is reported.**
-The branches, the tag, and the commits named below were read from the repository with `git fetch origin --tags` and `git show`.
-Everything about the tooling's behavior, the workflow runs, the permissions, and the open decisions was reported by
-[the release session](https://claude.ai/code/session_01Api82xbBopKwrTjdceqM6g), and nothing in this repository checks it.
-
-## Why it was done by hand
+## Why it is done by hand
 
 **fledge cannot release from a tag.**
 `fledge::plan_release()` aborts off the default branch with "Must be on the main branch",
 and releasing from a tag is not supported yet: `plan_release("last")` is a FIXME there.
-So the version, the `NEWS.md` section, and the date were written by hand.
+So the version, the `NEWS.md` section, and the date are written by hand.
 
 ## The release branch
 
 **The branch starts at the tag.**
-`claude/release-1.2.2` branches from v1.2.1 (`b8c0aed`), and the tag v1.2.2 is its head, `bec8e70`.
-The branch has to carry what the old tag lacks, in two groups, each a separate commit.
+The release branch branches from the earlier release tag, and its head becomes the new release tag.
+It carries what the old tag lacks, in two groups, each a separate commit.
 
 **CI and tooling are imported from the default branch as whole files, never as diffs.**
-The old tag's workflows are not the ones that pass today, so these were copied over from the default branch:
+The old tag's workflows are not the ones that pass today, so these are copied over from the default branch:
 all of `.github/`, the `.ccache` lines in `.gitignore` and `.Rbuildignore`, the touchstone scripts,
 and `Config/gha/extra-packages` in `DESCRIPTION`.
-Left out: `R/`, `man/`, `tests/`, `vignettes/`, `NEWS.md`, the README and site content, `cran-comments.md`,
-and the newer `tools/04-dplyr-tests.R`, which needs the `patch-tests/` directory the old tag does not have.
+Left out: `R/`, `man/`, `tests/`, `vignettes/`, `NEWS.md`, the README and site content,
+and any tooling that needs files the old tag does not have, such as a `tools/04-dplyr-tests.R` that needs `patch-tests/`.
 Importing the package sources would carry unreleased work into the release.
 
 **The user-facing fix is cherry-picked with `-x`.**
-The fix of this run was support for duckdb 2.0.0: the load guard in [`R/zzz.R`](/R/zzz.R) rejects duckdb 3.0.0 and later
+`git cherry-pick -x` records the original commit in the message,
+so the release and the default branch can be reconciled afterwards.
+Snapshot fixes the fix needs follow as plain commits.
+For 1.2.2 the fix was the support for duckdb 2.0.0:
+the load guard in [`R/zzz.R`](/R/zzz.R) rejects duckdb 3.0.0 and later
 ([`dependencies/`](/handbook/dependencies/README.md) owns the guard).
-`git cherry-pick -x` records the original commit in the message, so the release and the default branch can be reconciled afterwards.
-Snapshot fixes for duckdb 2.0 followed as plain commits.
 
 ## The release commits
 
-* The version 1.2.2 and its `NEWS.md` section, with fledge's marker comment removed from `NEWS.md`,
-  and `cran-comments.md` and its `.Rbuildignore` line deleted.
-* The release workflows `winbuilder`, `release-gate`, `cran-submission`, and `cran-release`,
-  and the actions `cran-lib`, `cran-submit`, `cran-release`, and `release-report` under `.github/actions/`,
-  adapted, as reported, from `claude/rsqlite-cran-release` of r-dbi/RSQLite.
-  The default branch carries them since the release was merged back, and [`ci/`](/handbook/ci/README.md) lists them.
-* `constructive` dropped, because it was archived on CRAN on 2026-09-27:
-  removed from `Suggests`, `R/construct_*.R` added to `.Rbuildignore`, and the methods registered on load.
+* The version and its `NEWS.md` section, with fledge's marker comment removed from `NEWS.md`.
+* Whatever keeps `R CMD check` clean against today's CRAN, such as dropping a suggested package that CRAN has archived.
+  For 1.2.2 that was `constructive`: removed from `Suggests`, `R/construct_*.R` added to `.Rbuildignore`,
+  and the methods registered on load.
   Reverting it is tracked in [krlmlr/duckplyr#42](https://github.com/krlmlr/duckplyr/issues/42).
-* The vctrs factor-hash snapshots accepted in three vendored dplyr test files.
-* The dated `NEWS.md` heading and `Date:` in `DESCRIPTION`, both 2026-10-22, in a last commit.
+* The dated `NEWS.md` heading and `Date:` in `DESCRIPTION`, in a last commit.
 
 ## Running the checks
 
 **The release PR gets no `pull_request` CI.**
-A branch from an old tag conflicts with the default branch, so, as reported, `pull_request` CI never runs on the release PR.
+A branch from an old tag conflicts with the default branch, so `pull_request` CI does not run on the release PR.
 Dispatch [`R-CMD-check.yaml`](/.github/workflows/R-CMD-check.yaml) on the branch with `-f ref=<branch>` instead.
 
-**A workflow that exists only on a non-default branch cannot be dispatched.**
+**A workflow the default branch has never carried cannot be dispatched.**
 The dispatch fails with HTTP 404.
-The run registered the release workflows through a one-off branch whose copies add a `push` trigger for that branch
-and guard every job with `github.event_name == 'workflow_dispatch'`,
+The release workflows are on the default branch now, so a release branch whose `.github/` is imported from it can dispatch them.
+A workflow that exists only on a release branch is registered through a one-off branch
+whose copy adds a `push` trigger for that branch and guards every job with `github.event_name == 'workflow_dispatch'`,
 the trick [`dplyr-alignment/rigged-dplyr/`](/handbook/dplyr-alignment/rigged-dplyr/README.md) describes for `revdep4.yaml`.
-The branch `claude/register-release-workflows` is that one-off branch.
 
-**The checks that gated the submission:**
+**The checks that gate the submission:**
 
-* the release gate, whose soft job and Documentation job never fail by design, so their logs are read rather than their status;
+* [`release-gate.yaml`](/.github/workflows/release-gate.yaml),
+  whose soft job and Documentation job never fail by design, so their logs are read rather than their status;
 * the `rcc` `R CMD check` and its versions matrix;
-* win-builder on R-devel, release, and oldrelease;
-* [`revdep4.yaml`](/.github/workflows/revdep4.yaml) with `which=strong` and depth 1, which checked 4 packages, all ok.
+* [`winbuilder.yaml`](/.github/workflows/winbuilder.yaml) on R-devel, release, and oldrelease;
+* [`revdep4.yaml`](/.github/workflows/revdep4.yaml) with `which=strong` and depth 1.
 
 **`revdep4.yaml` commits its report back to the checked ref.**
 Dispatch it with `ref=<sha>` rather than the branch name, so the head of the release branch stays the commit that was checked.
@@ -84,29 +77,30 @@ Dispatch it with `ref=<sha>` rather than the branch name, so the head of the rel
 ## Submitting and tagging
 
 **`cran-submission.yaml` tags and drafts the GitHub release in the repository it runs in.**
-It was run in the fork `krlmlr/duckplyr`, so the tag v1.2.2 and the GitHub release v1.2.2 live there.
-The GitHub release v1.2.2 in `tidyverse/duckplyr` is still to be created.
-
-**An auto-mode permission classifier blocked two steps.**
-The push that registered the workflows and the dispatch of the submission were refused
-until the maintainer added explicit permission rules for them.
+[`cran-submission.yaml`](/.github/workflows/cran-submission.yaml) submits to CRAN,
+and [`cran-release.yaml`](/.github/workflows/cran-release.yaml) publishes the draft once Posit's package manager serves the version.
+Run in a fork, both leave the tag and the GitHub release in the fork.
 
 ## After the release
 
-**The release is merged back into the fork's default branch.**
-[krlmlr/duckplyr#41](https://github.com/krlmlr/duckplyr/pull/41) merged the release branch into the default branch of `krlmlr/duckplyr`,
-with the `NEWS.md` section, the release workflows, and the support for duckdb 2.0.0.
-The default branch is at version 1.2.2.9000, with fledge's `NEWS.md` marker back in place.
-Whether `fledge::post_release()` is to be run is open.
+**The release branch is merged back into the default branch**,
+for the `NEWS.md` section, the version, and the fix,
+and the default branch goes back to a development version with fledge's `NEWS.md` marker.
+The generated `test-rel_api.R` is meant to be synced to duckdb-r before each release
+([`dplyr-alignment/sync/`](/handbook/dplyr-alignment/sync/README.md)).
 
-**The default branch of `tidyverse/duckplyr` has not caught up yet.**
-The fork prepares the branch `claude/upstream-ff`, a merge of `tidyverse/duckplyr`'s main at `526b3e70` into the fork's default branch,
-so that `tidyverse/duckplyr`'s main can be fast-forwarded to it.
-Its pull request in the fork is pending, and nothing has been run in `tidyverse/duckplyr` yet.
+**A release cut in the fork reaches `tidyverse/duckplyr` by a fast-forward.**
+A merge of `tidyverse/duckplyr`'s main into the fork's default branch is a commit
+that `tidyverse/duckplyr`'s main can be fast-forwarded to.
+The release tag and the GitHub release are then created in `tidyverse/duckplyr`.
+
+## Current state
+
+duckplyr 1.2.2 is on CRAN, and the fork's GitHub release v1.2.2 is published.
+The release is merged back into the fork's default branch, which is at 1.2.2.9000.
+`tidyverse/duckplyr` has not caught up yet:
+its main has not been fast-forwarded, and its GitHub release v1.2.2 does not exist.
 [tidyverse/duckplyr#963](https://github.com/tidyverse/duckplyr/pull/963), the support for duckdb 2.0 proposed there,
-is superseded by the release and is to be closed.
-
-The release went out without syncing `test-rel_api.R` to duckdb-r, which
-[`dplyr-alignment/sync/`](/handbook/dplyr-alignment/sync/README.md) says is meant to happen before each release.
+is superseded by the release.
 
 *To deepen: record the fast-forward of `tidyverse/duckplyr` and its GitHub release v1.2.2 once done; drain krlmlr/duckplyr#42.*
