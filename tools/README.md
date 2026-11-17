@@ -1,5 +1,9 @@
 # tools/
 
+*Handbook: [`dplyr-alignment/setup/`](/handbook/dplyr-alignment/setup/README.md) owns the prerequisites,
+[`dplyr-alignment/sync/`](/handbook/dplyr-alignment/sync/README.md) the sync workflow,
+and [`benchmarks/`](/handbook/benchmarks/README.md) the TPC-H workflows; this page is the per-script reference.*
+
 Developer scripts for code generation, testing, and benchmarking in duckplyr.
 Most scripts are meant to be run with `source("tools/<script>.R", echo = TRUE)` from the package root directory.
 
@@ -86,7 +90,7 @@ For each verb (with both order-preserving and order-enforcing variants), runs th
 
 #### `06-patch-duckdb.R`
 
-Takes the generated `test-rel_api.R` and transforms it for use in the duckdb-r package (`../duckdb-r/tests/testthat/test-rel_api.R`). Removes `duckdb::` and `DBI::` namespace qualifiers and activates `skip_if_not(TEST_RE2)` guards.
+Takes the generated `test-rel_api.R` and transforms it for use in the duckdb-r package (`../../duckdb/duckdb-r/tests/testthat/test-rel_api.R`). Removes `duckdb::` and `DBI::` namespace qualifiers and activates `skip_if_not(TEST_RE2)` guards.
 
 #### `07-overwrite.R`
 
