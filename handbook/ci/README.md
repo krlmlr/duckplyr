@@ -40,6 +40,14 @@ which no workflow here checks ([`dplyr-alignment/rigged-dplyr/`](/handbook/dplyr
 No workflow runs the sync pipeline or compares its output with the committed files,
 so generated code drifts from its generators silently until the next manual sync.
 
+**Is a release ready, and is it submitted and published?**
+[`release-gate.yaml`](/.github/workflows/release-gate.yaml) runs the mechanical release checks on a release branch,
+and [`winbuilder.yaml`](/.github/workflows/winbuilder.yaml) uploads the package to win-builder; both run on demand.
+[`cran-submission.yaml`](/.github/workflows/cran-submission.yaml), also run on demand, tags the commit, submits it to CRAN,
+and drafts a GitHub release in the repository it runs in;
+[`cran-release.yaml`](/.github/workflows/cran-release.yaml) publishes that draft nightly once Posit's package manager serves the version.
+How they were used for 1.2.2 is [`releases/`](/handbook/releases/README.md)'s.
+
 **Everything else.**
 [`pkgdown.yaml`](/.github/workflows/pkgdown.yaml) builds the website from `docs*` and `cran-*` branches,
 as `rcc` does from the default branch;

@@ -7,6 +7,7 @@ status: draft
 How a patch release is cut from an earlier release tag instead of from the default branch,
 when the default branch has moved on to changes that are not meant to ship.
 The one run so far is duckplyr 1.2.2 of 2026-10-22, cut from v1.2.1, and this page describes what that run did.
+duckplyr 1.2.2 is on CRAN.
 The bounds the fix may need to move are [`dependencies/`](/handbook/dependencies/README.md)'s,
 what the workflows named below check is [`ci/`](/handbook/ci/README.md)'s,
 and the shared dispatch trick is [`dplyr-alignment/rigged-dplyr/`](/handbook/dplyr-alignment/rigged-dplyr/README.md)'s.
@@ -50,7 +51,7 @@ Snapshot fixes for duckdb 2.0 followed as plain commits.
 * The release workflows `winbuilder`, `release-gate`, `cran-submission`, and `cran-release`,
   and the actions `cran-lib`, `cran-submit`, `cran-release`, and `release-report` under `.github/actions/`,
   adapted, as reported, from `claude/rsqlite-cran-release` of r-dbi/RSQLite.
-  They are not in [`ci/`](/handbook/ci/README.md)'s list, since the default branch does not carry them.
+  The default branch carries them since the release was merged back, and [`ci/`](/handbook/ci/README.md) lists them.
 * `constructive` dropped, because it was archived on CRAN on 2026-09-27:
   removed from `Suggests`, `R/construct_*.R` added to `.Rbuildignore`, and the methods registered on load.
   Reverting it is tracked in [krlmlr/duckplyr#42](https://github.com/krlmlr/duckplyr/issues/42).
@@ -83,8 +84,8 @@ Dispatch it with `ref=<sha>` rather than the branch name, so the head of the rel
 ## Submitting and tagging
 
 **`cran-submission.yaml` tags and drafts the GitHub release in the repository it runs in.**
-It was run in the fork `krlmlr/duckplyr`, so the tag v1.2.2 and the draft release live there,
-and have to be moved or recreated in `tidyverse/duckplyr`.
+It was run in the fork `krlmlr/duckplyr`, so the tag v1.2.2 and the GitHub release v1.2.2 live there.
+The GitHub release v1.2.2 in `tidyverse/duckplyr` is still to be created.
 
 **An auto-mode permission classifier blocked two steps.**
 The push that registered the workflows and the dispatch of the submission were refused
@@ -92,14 +93,20 @@ until the maintainer added explicit permission rules for them.
 
 ## After the release
 
-These are open, and the maintainer's to decide:
+**The release is merged back into the fork's default branch.**
+[krlmlr/duckplyr#41](https://github.com/krlmlr/duckplyr/pull/41) merged the release branch into the default branch of `krlmlr/duckplyr`,
+with the `NEWS.md` section, the release workflows, and the support for duckdb 2.0.0.
+The default branch is at version 1.2.2.9000, with fledge's `NEWS.md` marker back in place.
+Whether `fledge::post_release()` is to be run is open.
 
-* Merging the release back into the default branch, for the `NEWS.md` section and the version.
-* Whether to restore fledge's `NEWS.md` marker or to bump the default branch by hand to 1.2.2.9000.
-* `fledge::post_release()` was not run.
-* The release PR [krlmlr/duckplyr#41](https://github.com/krlmlr/duckplyr/pull/41) is open.
+**The default branch of `tidyverse/duckplyr` has not caught up yet.**
+The fork prepares the branch `claude/upstream-ff`, a merge of `tidyverse/duckplyr`'s main at `526b3e70` into the fork's default branch,
+so that `tidyverse/duckplyr`'s main can be fast-forwarded to it.
+Its pull request in the fork is pending, and nothing has been run in `tidyverse/duckplyr` yet.
+[tidyverse/duckplyr#963](https://github.com/tidyverse/duckplyr/pull/963), the support for duckdb 2.0 proposed there,
+is superseded by the release and is to be closed.
 
 The release went out without syncing `test-rel_api.R` to duckdb-r, which
 [`dplyr-alignment/sync/`](/handbook/dplyr-alignment/sync/README.md) says is meant to happen before each release.
 
-*To deepen: record the outcome of the CRAN submission, and the resolution of the open decisions above; drain krlmlr/duckplyr#42.*
+*To deepen: record the fast-forward of `tidyverse/duckplyr` and its GitHub release v1.2.2 once done; drain krlmlr/duckplyr#42.*
