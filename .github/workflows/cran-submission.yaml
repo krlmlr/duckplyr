@@ -2,8 +2,15 @@
 # whose README describes what each job does and what it expects from the package.
 # It builds nothing: it uploads the tarball that a green run of R-CMD-check.yaml on the same commit built, checked and uploaded.
 # Dispatch it by hand on the release branch, or on `main` for a fix made there:
-# `gh workflow run cran-submission.yaml --repo tidyverse/duckplyr --ref <branch> [-f dry-run=true]`.
-# Only on tidyverse/duckplyr: in a fork, the job is skipped.
+# `gh workflow run cran-submission.yaml --repo krlmlr/duckplyr --ref <branch> [-f dry-run=true]`.
+# Only on krlmlr/duckplyr, the fork that releases duckplyr: anywhere else, the job is skipped.
+#
+# Releasing from the fork (the README's "Releasing from a fork"):
+# the commit heads the dispatched branch of the fork, the tarball comes from a push or dispatch run of R-CMD-check.yaml in the fork,
+# and the checklist pull request is open in the fork, where the draft release and the attempt comments are written too.
+# Nothing is written to tidyverse/duckplyr: the run ends with commands that bring it in line by hand,
+# printed in the log and summary of its last job (`report`, or `upload` on a dry run),
+# for someone with push access to run after a real run, from a clone where `upstream` is tidyverse/duckplyr and `origin` the fork.
 #
 # The release process:
 #
@@ -28,7 +35,7 @@
 #    `# duckplyr X.Y.Z (YYYY-MM-DD)`, and in `Date:` in DESCRIPTION.
 # 4. Check: dispatch R-CMD-check.yaml on the release branch with `cran-submission` on,
 #    which builds the source tarball, recompresses it with pigz -11, checks it and uploads it:
-#    `gh workflow run R-CMD-check.yaml --repo tidyverse/duckplyr --ref <branch> -f cran-submission=true`.
+#    `gh workflow run R-CMD-check.yaml --repo krlmlr/duckplyr --ref <branch> -f cran-submission=true`.
 #    Only a tarball from such a run is recompressed, so dispatch it again after every change to the branch.
 #    Dispatch it after the push, not before: a push run and a dispatch run of the same commit share a concurrency group,
 #    so the later one cancels the earlier one; R-CMD-check.yaml starts push runs on `main`, for a fix made there.
@@ -64,7 +71,7 @@ permissions: {}
 
 jobs:
   submit:
-    if: github.repository == 'tidyverse/duckplyr'
+    if: github.repository == 'krlmlr/duckplyr'
     uses: krlmlr/r-release-actions/.github/workflows/cran-submission.yaml@main
     permissions:
       actions: read

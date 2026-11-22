@@ -2,8 +2,8 @@
 # once Posit's package manager serves the version, it tags `vX.Y.Z`, publishes the draft release,
 # commits the development bump and merges the release pull request (the release process: the header of cran-submission.yaml).
 # A run without a draft release does nothing.
-# Nightly, and by hand with `gh workflow run release-status.yaml --repo tidyverse/duckplyr [-f dry-run=true]`.
-# Only on tidyverse/duckplyr: in a fork, the job is skipped.
+# Nightly, and by hand with `gh workflow run release-status.yaml --repo krlmlr/duckplyr [-f dry-run=true]`.
+# Only on krlmlr/duckplyr, the fork that releases duckplyr: anywhere else, the job is skipped.
 on:
   schedule:
     - cron: "43 5 * * *"
@@ -20,7 +20,7 @@ permissions: {}
 
 jobs:
   release-status:
-    if: github.repository == 'tidyverse/duckplyr'
+    if: github.repository == 'krlmlr/duckplyr'
     uses: krlmlr/r-release-actions/.github/workflows/release-status.yaml@main
     permissions:
       contents: write
