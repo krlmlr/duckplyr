@@ -2,8 +2,8 @@
 # and reports both on the checklist pull request (the release process: the header of cran-submission.yaml).
 # It builds nothing: it takes the tarball from a green run of R-CMD-check.yaml on the same commit.
 # Every upload is started by hand, because each one sends an email:
-# `gh workflow run builders.yaml --repo tidyverse/duckplyr --ref <branch> [-f queues="R-devel R-release"]`.
-# Only on tidyverse/duckplyr: in a fork, the job is skipped.
+# `gh workflow run builders.yaml --repo krlmlr/duckplyr --ref <branch> [-f queues="R-devel R-release"]`.
+# Only on krlmlr/duckplyr, the fork that releases duckplyr: anywhere else, the job is skipped.
 on:
   workflow_dispatch:
     inputs:
@@ -22,7 +22,7 @@ permissions: {}
 
 jobs:
   builders:
-    if: github.repository == 'tidyverse/duckplyr'
+    if: github.repository == 'krlmlr/duckplyr'
     uses: krlmlr/r-release-actions/.github/workflows/builders.yaml@main
     permissions:
       actions: read
