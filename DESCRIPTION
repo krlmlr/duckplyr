@@ -59,7 +59,8 @@ Suggests:
 Enhances:
     qs2
 VignetteBuilder: 
-    knitr
+    knitr,
+    rmarkdown
 Config/comment/gha/extra-packages: arrow does not compile on aarch64
     Windows.
 Config/gha/extra-packages: arrow=?ignore-build-errors
