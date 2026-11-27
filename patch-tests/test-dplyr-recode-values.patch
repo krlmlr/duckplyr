@@ -1,0 +1,40 @@
+diff --git b/tests/testthat/test-dplyr-recode-values.R a/tests/testthat/test-dplyr-recode-values.R
+--- b/tests/testthat/test-dplyr-recode-values.R
++++ a/tests/testthat/test-dplyr-recode-values.R
+@@ -221,22 +221,22 @@ test_that("`replace_values()` is type stable on `x`", {
+     factor(c("b", "b"), levels = c("a", "b"))
+   )
+ 
+-  expect_snapshot(error = TRUE, {
++  expect_snapshot(transform = scrub_hash, error = TRUE, {
+     replace_values(x, "c" ~ "b")
+   })
+-  expect_snapshot(error = TRUE, {
++  expect_snapshot(transform = scrub_hash, error = TRUE, {
+     replace_values(x, from = "c", to = "b")
+   })
+ 
+-  expect_snapshot(error = TRUE, {
++  expect_snapshot(transform = scrub_hash, error = TRUE, {
+     replace_values(x, "a" ~ "c")
+   })
+-  expect_snapshot(error = TRUE, {
++  expect_snapshot(transform = scrub_hash, error = TRUE, {
+     replace_values(x, from = "a", to = "c")
+   })
+ 
+   # Error index is right when `NULL` is involved
+-  expect_snapshot(error = TRUE, {
++  expect_snapshot(transform = scrub_hash, error = TRUE, {
+     replace_values(x, "a" ~ "b", NULL, "b" ~ "c")
+   })
+ })
+@@ -305,7 +305,7 @@ test_that("treats list `from` and `to` as lists of vectors", {
+     recode_values(x, from = from, to = to)
+   })
+   expect_identical(
+-    vec_recode_values(x, from = from, to = to),
++    vctrs::vec_recode_values(x, from = from, to = to),
+     list(NULL, 6:7, 1L, NULL)
+   )
+ })
