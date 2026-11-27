@@ -29,7 +29,7 @@ df <-
   duckplyr::duckdb_tibble(x = 1:3) |>
   mutate(y = x + 1)
 #> duckdb keeps downloaded extensions and secrets in a temporary directory:
-#> ℹ /tmp/RtmpvHn9hM/duckdb
+#> ℹ /tmp/RtmpaFzlXQ/duckdb
 #> This is removed when the R session ends.
 #> • Extensions are re-downloaded each session.
 #> • Secrets are lost.
@@ -103,7 +103,7 @@ system.time(
     )
 )
 #>    user  system elapsed 
-#>   0.011   0.000   0.011
+#>   0.008   0.001   0.010
 ```
 
 Setting up the pipeline is fast, the size of the data does not affect
@@ -116,19 +116,19 @@ mean_arr_delay_ewr |>
   explain()
 #> ╭- Projection -------------------------------------------------------------------------------------╮
 #> │ Projections: month, mean_arr_delay, min_arr_delay, max_arr_delay, median_arr_delay               │
-#> │ ~61,046 rows                                                                                     │
+#> │ ~67,355 rows                                                                                     │
 #> ╰-------------------------------------------------┬------------------------------------------------╯
 #> ╭- Projection ------------------------------------┴------------------------------------------------╮
 #> │ Projections:                                                                                     │
 #> │ month,                                                                                           │
 #> │ sum(CASE  WHEN ((arr_delay IS NULL)) THEN (CAST(1 AS INTEGER)) ELSE CAST(0 AS INTEGER) END) > 0, │
 #> │ avg(arr_delay), min(arr_delay), max(arr_delay), quantile_cont(arr_delay, CAST(0.5 AS DOUBLE))    │
-#> │ ~61,046 rows                                                                                     │
+#> │ ~67,355 rows                                                                                     │
 #> ╰-------------------------------------------------┬------------------------------------------------╯
 #> ╭- Hash Group By ---------------------------------┴------------------------------------------------╮
 #> │ Groups: #0                                                                                       │
 #> │ Aggregates: sum_no_overflow(#1), avg(#2), min(#3), max(#4), quantile_cont(#5, #6)                │
-#> │ ~61,046 rows                                                                                     │
+#> │ ~67,355 rows                                                                                     │
 #> ╰-------------------------------------------------┬------------------------------------------------╯
 #> ╭- Projection ------------------------------------┴------------------------------------------------╮
 #> │ Projections:                                                                                     │
@@ -160,7 +160,7 @@ available when accessed:
 
 system.time(mean_arr_delay_ewr$mean_arr_delay[[1]])
 #>    user  system elapsed 
-#>   0.030   0.000   0.015
+#>   0.024   0.000   0.020
 ```
 
 ### Comparison
@@ -197,7 +197,7 @@ system.time(
     )
 )
 #>    user  system elapsed 
-#>   0.031   0.002   0.034
+#>   0.043   0.005   0.048
 ```
 
 See also the [duckplyr: dplyr Powered by
