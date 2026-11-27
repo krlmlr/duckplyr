@@ -1,0 +1,32 @@
+# Paths the handbook checks skip, one per line: a glob, or `kind: glob`.
+# A bare glob skips the path in every check; `orphan:` exempts it from the
+# orphan check alone, and `em-dash:` from the em dash check alone. A trailing /
+# covers everything below, and * spans directory separators.
+# Handbook: /handbook/meta/local/README.md says what this repository does not
+# author, and the shared rules say what needs no backreference; both belong
+# here, by kind.
+
+# Vendored skills and commands are nobody's to reformat.
+em-dash: .claude/
+
+# Predates the em dash rule and is not swept yet; the rule still binds what is
+# written in it from here on.
+em-dash: tools/README.md
+
+# Generated documents cannot carry a backreference; the generator does.
+# NEWS.md is fledge's, README.md and index.md are rendered from README.Rmd,
+# and the snapshots are testthat's.
+orphan: NEWS.md
+orphan: README.md
+orphan: index.md
+orphan: tests/testthat/_snaps/
+
+# Shipped on the pkgdown site, whose readers do not have the tree, so a link
+# into it would be broken for them.
+orphan: .github/CONTRIBUTING.md
+
+# Third-party text, the Contributor Covenant.
+orphan: .github/CODE_OF_CONDUCT.md
+
+# A per-submission log for CRAN, written for CRAN's reviewers.
+orphan: cran-comments.md

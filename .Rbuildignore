@@ -32,3 +32,10 @@
 ^\.vscode$
 ^\.ccache$
 ^README-fixtures$
+^handbook$
+^experiments$
+^\.claude$
+^AGENTS\.md$
+^CLAUDE\.md$
+^\.handbook-ignore$
+^\.handbook-source$
