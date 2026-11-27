@@ -73,7 +73,7 @@ function creates a duckplyr data frame from vectors:
 
 df <- duckdb_tibble(x = 1:3, y = letters[1:3])
 #> duckdb keeps downloaded extensions and secrets in a temporary directory:
-#> ℹ /tmp/RtmppEcPon/duckdb
+#> ℹ /tmp/RtmpMegOZ6/duckdb
 #> This is removed when the R session ends.
 #> • Extensions are re-downloaded each session.
 #> • Secrets are lost.
@@ -133,7 +133,7 @@ table:
 path_duckdb <- tempfile(fileext = ".duckdb")
 con <- DBI::dbConnect(duckdb::duckdb(path_duckdb))
 #> duckdb keeps downloaded extensions and secrets in a temporary directory:
-#> ℹ /tmp/RtmppEcPon/duckdb
+#> ℹ /tmp/RtmpMegOZ6/duckdb
 #> This is removed when the R session ends.
 #> • Extensions are re-downloaded each session.
 #> • Secrets are lost.
@@ -145,7 +145,7 @@ DBI::dbWriteTable(con, "data", data.frame(x = 1:3, y = letters[1:3]))
 dbplyr_data <- tbl(con, "data")
 dbplyr_data
 #> # A query:  ?? x 2
-#> # Database: DuckDB 2.0.1 [unknown@Linux 7.0.0-1020-azure:R 4.6.2//tmp/RtmppEcPon/file5b67664a5648.duckdb]
+#> # Database: DuckDB 2.0.1 [unknown@Linux 7.0.0-1020-azure:R 4.6.2//tmp/RtmpMegOZ6/file5af741bd6b05.duckdb]
 #>       x y    
 #>   <int> <chr>
 #> 1     1 a    
@@ -161,7 +161,7 @@ dbplyr_data |>
 #> <PLAN>
 #> physical_plan
 #> ╭- Seq Scan --------------------------╮
-#> │ Table: file5b67664a5648.main."data" │
+#> │ Table: file5af741bd6b05.main."data" │
 #> │ Type: Sequential Scan               │
 #> │ Projections: x, y                   │
 #> │ ~3 rows                             │
@@ -189,7 +189,7 @@ dbplyr_data |>
   as_duckdb_tibble() |>
   explain()
 #> ╭- Seq Scan --------------------------╮
-#> │ Table: file5b67664a5648.main."data" │
+#> │ Table: file5af741bd6b05.main."data" │
 #> │ Type: Sequential Scan               │
 #> │ Projections: x, y                   │
 #> │ ~3 rows                             │
