@@ -62,11 +62,11 @@ VignetteBuilder:
     knitr
 Config/comment/gha/extra-packages: arrow does not compile on aarch64
     Windows.
-Config/gha/extra-packages:arrow=?ignore-build-errors
+Config/gha/extra-packages: arrow=?ignore-build-errors
 Config/Needs/check: anthonynorth/roxyglobals
-Config/Needs/development:devtools, qs2, reprex, r-lib/roxygen2,
+Config/Needs/development: devtools, qs2, reprex, r-lib/roxygen2,
     roxyglobals, rstudioapi, tidyverse
-Config/Needs/website:dbplyr, rmarkdown, tidyverse/tidytemplate
+Config/Needs/website: dbplyr, rmarkdown, tidyverse/tidytemplate
 Config/roxygen2/version: 8.1.1.9000
 Config/testthat/edition: 3
 Config/testthat/parallel: false
