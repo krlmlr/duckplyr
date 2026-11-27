@@ -94,7 +94,7 @@ library(duckplyr)
 band_members %>% anti_join(band_instruments)
 #> Joining with `by = join_by(name)`
 #> duckdb keeps downloaded extensions and secrets in a temporary directory:
-#> ℹ /tmp/RtmpfG8UzO/duckdb
+#> ℹ /tmp/RtmpTwpabz/duckdb
 #> This is removed when the R session ends.
 #> • Extensions are re-downloaded each session.
 #> • Secrets are lost.
