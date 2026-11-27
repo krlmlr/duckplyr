@@ -249,7 +249,7 @@ test_that("fallback_config()", {
     log_dir = "/",
     verbose = TRUE
   )
-  expect_snapshot_file(config_path, "fallback.dcf")
+  expect_snapshot_file(config_path, "fallback.dcf", compare = compare_file_text)
 
   expect_snapshot({
     "No conflicts"
@@ -260,7 +260,11 @@ test_that("fallback_config()", {
     "Reset and set config"
     fallback_config(reset_all = TRUE, logging = FALSE)
   })
-  expect_snapshot_file(config_path, "fallback-2.dcf")
+  expect_snapshot_file(
+    config_path,
+    "fallback-2.dcf",
+    compare = compare_file_text
+  )
 
   withr::local_envvar(c(
     DUCKPLYR_FALLBACK_LOGGING = 1
