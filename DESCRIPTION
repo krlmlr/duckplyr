@@ -11,14 +11,15 @@ Authors@R: c(
            comment = c(ROR = "03wc8by49"))
   )
 Description: A drop-in replacement for 'dplyr', powered by 'DuckDB' for
-    performance.  Offers convenient utilities for working with in-memory and
-    larger-than-memory data while retaining full 'dplyr' compatibility.
+    performance.  Offers convenient utilities for working with in-memory
+    and larger-than-memory data while retaining full 'dplyr'
+    compatibility.
 License: MIT + file LICENSE
 URL: https://duckplyr.tidyverse.org, https://github.com/tidyverse/duckplyr
 BugReports: https://github.com/tidyverse/duckplyr/issues
 Depends:
-    R (>= 4.0.0),
-    dplyr (>= 1.2.0)
+    dplyr (>= 1.2.0),
+    R (>= 4.0.0)
 Imports:
     cli,
     collections,
@@ -57,29 +58,21 @@ Suggests:
     withr
 Enhances:
     qs2
+VignetteBuilder: 
+    knitr,
+    rmarkdown
+Config/comment/gha/extra-packages: arrow does not compile on aarch64
+    Windows.
+Config/gha/extra-packages: arrow=?ignore-build-errors
 Config/Needs/check: anthonynorth/roxyglobals
-Config/Needs/development:
-    devtools,
-    qs2,
-    reprex,
-    r-lib/roxygen2,
-    roxyglobals,
-    rstudioapi,
-    tidyverse
-Config/Needs/website:
-    dbplyr,
-    rmarkdown,
-    tidyverse/tidytemplate
+Config/Needs/development: devtools, qs2, reprex, r-lib/roxygen2,
+    roxyglobals, rstudioapi, tidyverse
+Config/Needs/website: dbplyr, rmarkdown, tidyverse/tidytemplate
+Config/roxygen2/version: 8.1.1.9000
 Config/testthat/edition: 3
 Config/testthat/parallel: false
 Config/testthat/start-first: rel_api, tpch, as_duckplyr_df, dplyr-mutate,
     dplyr-filter, dplyr-count-tally
-Config/gha/extra-packages:
-    arrow=?ignore-build-errors
-Config/comment/gha/extra-packages: arrow does not compile
-    on aarch64 Windows.
 Encoding: UTF-8
 Roxygen: list( markdown = TRUE, roclets = c("collate", "namespace", "rd",
     "roxyglobals::global_roclet") )
-VignetteBuilder: knitr
-Config/roxygen2/version: 8.1.1.9000
